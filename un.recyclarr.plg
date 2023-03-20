@@ -4,8 +4,8 @@
   <!ENTITY name       "un.recyclarr">
   <!ENTITY author     "fabricionaweb">
   <!ENTITY version    "2023.03.20-1">
-  <!ENTITY versionBin "v4.3.0">
-  <!ENTITY md5        "1b914384928e794dfe5547ab5bd0d6de">
+  <!ENTITY binVersion "v4.3.0">
+  <!ENTITY binMD5     "1b914384928e794dfe5547ab5bd0d6de">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
   <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
   <!ENTITY flash      "/boot/config/plugins/&name;">
@@ -26,15 +26,18 @@
 <CHANGES>
   ##&name;
   ###&version;
+  - Set folders permission 644
+
+  ###2023.03.20
   - First release
 </CHANGES>
 
 <!--
 Get the binary
 -->
-<FILE Name="&flash;/&name;-&versionBin;.tar.xz">
-<URL>"https://github.com/recyclarr/recyclarr/releases/download/&versionBin;/recyclarr-linux-x64.tar.xz"</URL>
-<MD5>&md5;</MD5>
+<FILE Name="&flash;/&name;-&binVersion;.tar.xz">
+<URL>"https://github.com/recyclarr/recyclarr/releases/download/&binVersion;/recyclarr-linux-x64.tar.xz"</URL>
+<MD5>&binMD5;</MD5>
 </FILE>
 
 <!--
@@ -44,7 +47,7 @@ Plugin description
 <INLINE>
 **Recyclarr**
 
-Automatically sync TRaSH guides to your Sonarr and Radarr instances. <br />
+Automatically sync TRaSH guides to your Sonarr and Radarr instances.
 Path to yaml: `/boot/config/plugins/un.recyclarr/configs`
 </INLINE>
 </FILE>
@@ -55,7 +58,7 @@ The 'pre-install' script
 <FILE Run="/bin/bash">
 <INLINE>
 # Remove old versions
-rm -f $(ls &flash;/*.tar.xz 2>/dev/null | grep -v &versionBin;)
+rm -f $(ls &flash;/*.tar.xz 2>/dev/null | grep -v &binVersion;)
 </INLINE>
 </FILE>
 
@@ -65,9 +68,12 @@ The 'install' script
 <FILE Run="/bin/bash">
 <INLINE>
 # Extract the binary
-tar -xf &flash;/&name;-&versionBin;.tar.xz -C /usr/local/bin --no-same-owner
-# Link the config folders to the flash
-install -dm644 &flash;/configs &appdata;
+tar -xf &flash;/&name;-&binVersion;.tar.xz -C /usr/local/bin --no-same-owner
+
+# Create folders with right permissions
+install -dm644 &flash;/configs &appdata;/{cache,logs,repo}
+
+# Symlink the config folders to the flash
 ln -sf &flash;/configs &appdata;/configs
 </INLINE>
 </FILE>
@@ -94,8 +100,6 @@ echo "-------------------------------------------------"
 echo "--- Default cronjob set to run: -----------------"
 echo "--- @daily at 02:00 -----------------------------"
 echo "-------------------------------------------------"
-echo "--- You can close now ---------------------------"
-echo "-------------------------------------------------"
 </INLINE>
 </FILE>
 
@@ -111,8 +115,6 @@ rm -rf &flash;
 rm -rf &appdata;
 echo "-------------------------------------------------"
 echo "--- Recyclarr has been uninstalled --------------"
-echo "-------------------------------------------------"
-echo "--- You can close now ---------------------------"
 echo "-------------------------------------------------"
 </INLINE>
 </FILE>

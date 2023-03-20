@@ -3,13 +3,14 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name       "un.recyclarr">
   <!ENTITY author     "fabricionaweb">
-  <!ENTITY version    "2023.03.20">
+  <!ENTITY version    "2023.03.20-1">
   <!ENTITY versionBin "v4.3.0">
   <!ENTITY md5        "1b914384928e794dfe5547ab5bd0d6de">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
   <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY pluginPath "/boot/config/plugins/&name;">
-  <!ENTITY appData    "/root/.config/recyclarr">
+  <!ENTITY flash      "/boot/config/plugins/&name;">
+  <!ENTITY emhttp     "/usr/local/emhttp/plugins/&name;">
+  <!ENTITY appdata    "/root/.config/recyclarr">
 ]>
 
 <PLUGIN
@@ -18,6 +19,7 @@
   version="&version;"
   pluginURL="&pluginURL;"
   support="&gitURL;/issues"
+  icon="fa-trash-o"
   min="6.11.5"
 >
 
@@ -30,9 +32,21 @@
 <!--
 Get the binary
 -->
-<FILE Name="&pluginPath;/&name;-&versionBin;.tar.xz">
+<FILE Name="&flash;/&name;-&versionBin;.tar.xz">
 <URL>"https://github.com/recyclarr/recyclarr/releases/download/&versionBin;/recyclarr-linux-x64.tar.xz"</URL>
 <MD5>&md5;</MD5>
+</FILE>
+
+<!--
+Plugin description
+-->
+<FILE Name="&emhttp;/README.md">
+<INLINE>
+**Recyclarr**
+
+Automatically sync TRaSH guides to your Sonarr and Radarr instances. <br />
+Path to yaml: `/boot/config/plugins/un.recyclarr/configs`
+</INLINE>
 </FILE>
 
 <!--
@@ -41,7 +55,7 @@ The 'pre-install' script
 <FILE Run="/bin/bash">
 <INLINE>
 # Remove old versions
-rm -f $(ls &pluginPath;/*.tar.xz 2>/dev/null | grep -v &versionBin;)
+rm -f $(ls &flash;/*.tar.xz 2>/dev/null | grep -v &versionBin;)
 </INLINE>
 </FILE>
 
@@ -51,10 +65,10 @@ The 'install' script
 <FILE Run="/bin/bash">
 <INLINE>
 # Extract the binary
-tar -xf &pluginPath;/&name;-&versionBin;.tar.xz -C /usr/local/bin --no-same-owner
+tar -xf &flash;/&name;-&versionBin;.tar.xz -C /usr/local/bin --no-same-owner
 # Link the config folders to the flash
-install -dm644 &pluginPath;/configs &appData;
-ln -sf &pluginPath;/configs &appData;/configs
+install -dm644 &flash;/configs &appdata;
+ln -sf &flash;/configs &appdata;/configs
 </INLINE>
 </FILE>
 
@@ -74,10 +88,13 @@ The 'post-install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "-------------------------------------------------"
-echo "--- Upload your .yml files to:                ---"
+echo "--- Upload your .yml files to: ------------------"
 echo "--- /boot/config/plugins/un.recyclarr/configs ---"
-echo "---                                           ---"
-echo "--- Default cronjob set to run daily at 02:00 ---"
+echo "-------------------------------------------------"
+echo "--- Default cronjob set to run: -----------------"
+echo "--- @daily at 02:00 -----------------------------"
+echo "-------------------------------------------------"
+echo "--- You can close now ---------------------------"
 echo "-------------------------------------------------"
 </INLINE>
 </FILE>
@@ -89,8 +106,14 @@ The 'remove' script
 <INLINE>
 rm -rf /etc/cron.daily/recyclarr.sh
 rm -rf /usr/local/bin/recyclarr
-rm -rf &appData;
-rm -rf &pluginPath;
+rm -rf &emhttp;
+rm -rf &flash;
+rm -rf &appdata;
+echo "-------------------------------------------------"
+echo "--- Recyclarr has been uninstalled --------------"
+echo "-------------------------------------------------"
+echo "--- You can close now ---------------------------"
+echo "-------------------------------------------------"
 </INLINE>
 </FILE>
 </PLUGIN>

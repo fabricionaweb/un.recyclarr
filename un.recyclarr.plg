@@ -1,0 +1,96 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!DOCTYPE PLUGIN [
+  <!ENTITY name       "un.recyclarr">
+  <!ENTITY author     "fabricionaweb">
+  <!ENTITY version    "2023.03.20">
+  <!ENTITY versionBin "v4.3.0">
+  <!ENTITY md5        "1b914384928e794dfe5547ab5bd0d6de">
+  <!ENTITY gitURL     "https://github.com/&author;/&name;">
+  <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
+  <!ENTITY pluginPath "/boot/config/plugins/&name;">
+  <!ENTITY appData    "/root/.config/recyclarr">
+]>
+
+<PLUGIN
+  name="&name;"
+  author="&author;"
+  version="&version;"
+  pluginURL="&pluginURL;"
+  support="&gitURL;/issues"
+  min="6.11.5"
+>
+
+<CHANGES>
+  ##&name;
+  ###&version;
+  - First release
+</CHANGES>
+
+<!--
+Get the binary
+-->
+<FILE Name="&pluginPath;/&name;-&versionBin;.tar.xz">
+<URL>"https://github.com/recyclarr/recyclarr/releases/download/&versionBin;/recyclarr-linux-x64.tar.xz"</URL>
+<MD5>&md5;</MD5>
+</FILE>
+
+<!--
+The 'pre-install' script
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+# Remove old versions
+rm -f $(ls &pluginPath;/*.tar.xz 2>/dev/null | grep -v &versionBin;)
+</INLINE>
+</FILE>
+
+<!--
+The 'install' script
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+# Extract the binary
+tar -xf &pluginPath;/&name;-&versionBin;.tar.xz -C /usr/local/bin --no-same-owner
+# Link the config folders to the flash
+install -dm644 &pluginPath;/configs &appData;
+ln -sf &pluginPath;/configs &appData;/configs
+</INLINE>
+</FILE>
+
+<!--
+Create the cronjob
+-->
+<FILE Name="/etc/cron.daily/recyclarr.sh" Mode="700">
+<INLINE>
+#/bin/bash
+recyclarr sync | logger -t recyclarr
+</INLINE>
+</FILE>
+
+<!--
+The 'post-install' script
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+echo "-------------------------------------------------"
+echo "--- Upload your .yml files to:                ---"
+echo "--- /boot/config/plugins/un.recyclarr/configs ---"
+echo "---                                           ---"
+echo "--- Default cronjob set to run daily at 02:00 ---"
+echo "-------------------------------------------------"
+</INLINE>
+</FILE>
+
+<!--
+The 'remove' script
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+rm -rf /etc/cron.daily/recyclarr.sh
+rm -rf /usr/local/bin/recyclarr
+rm -rf &appData;
+rm -rf &pluginPath;
+</INLINE>
+</FILE>
+</PLUGIN>

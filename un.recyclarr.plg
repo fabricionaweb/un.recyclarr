@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name       "un.recyclarr">
   <!ENTITY author     "fabricionaweb">
-  <!ENTITY version    "2023.03.20-1">
+  <!ENTITY version    "2023.03.21">
   <!ENTITY binVersion "v4.3.0">
   <!ENTITY binMD5     "1b914384928e794dfe5547ab5bd0d6de">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
@@ -26,6 +26,9 @@
 <CHANGES>
   ##&name;
   ###&version;
+  - Add secrets.yml
+
+  ###2023.03.20-1
   - Set folders permission 644
 
   ###2023.03.20
@@ -35,7 +38,7 @@
 <!--
 Get the binary
 -->
-<FILE Name="&flash;/&name;-&binVersion;.tar.xz">
+<FILE Name="&emhttp;/&name;-&binVersion;.tar.xz">
 <URL>"https://github.com/recyclarr/recyclarr/releases/download/&binVersion;/recyclarr-linux-x64.tar.xz"</URL>
 <MD5>&binMD5;</MD5>
 </FILE>
@@ -57,8 +60,8 @@ The 'pre-install' script
 -->
 <FILE Run="/bin/bash">
 <INLINE>
-# Remove old versions
-rm -f $(ls &flash;/*.tar.xz 2>/dev/null | grep -v &binVersion;)
+echo "Removing old versions"
+rm -f $(ls &emhttp;/*.tar.xz 2>/dev/null | grep -v &binVersion;)
 </INLINE>
 </FILE>
 
@@ -67,14 +70,18 @@ The 'install' script
 -->
 <FILE Run="/bin/bash">
 <INLINE>
-# Extract the binary
-tar -xf &flash;/&name;-&binVersion;.tar.xz -C /usr/local/bin --no-same-owner
+echo "Extracting the binary"
+tar -xf &emhttp;/&name;-&binVersion;.tar.xz -C /usr/local/bin --no-same-owner
 
-# Create folders with right permissions
+echo "Creating configs and secrets.yml"
 install -dm644 &flash;/configs &appdata;/{cache,logs,repo}
+if [[ ! -f &flash;/secrets.yml ]]; then
+  install -m600 /dev/null &flash;/secrets.yml
+fi
 
-# Symlink the config folders to the flash
-ln -sf &flash;/configs &appdata;/configs
+echo "Creating symlinks to flash"
+ln -sf &flash;/secrets.yml &appdata;
+ln -sf &flash;/configs -T &appdata;/configs
 </INLINE>
 </FILE>
 
@@ -93,13 +100,13 @@ The 'post-install' script
 -->
 <FILE Run="/bin/bash">
 <INLINE>
-echo "-------------------------------------------------"
-echo "--- Upload your .yml files to: ------------------"
-echo "--- /boot/config/plugins/un.recyclarr/configs ---"
-echo "-------------------------------------------------"
-echo "--- Default cronjob set to run: -----------------"
-echo "--- @daily at 02:00 -----------------------------"
-echo "-------------------------------------------------"
+echo "-----------------------------------------------------"
+echo "--- Default cronjob set to run daily at 02:00 -------"
+echo "--- Upload your .yml config files to: ---------------"
+echo "--- /boot/config/plugins/un.recyclarr/configs -------"
+echo "--- Add the secrets to: -----------------------------"
+echo "--- /boot/config/plugins/un.recyclarr/secrets.yml ---"
+echo "-----------------------------------------------------"
 </INLINE>
 </FILE>
 
@@ -113,9 +120,9 @@ rm -rf /usr/local/bin/recyclarr
 rm -rf &emhttp;
 rm -rf &flash;
 rm -rf &appdata;
-echo "-------------------------------------------------"
-echo "--- Recyclarr has been uninstalled --------------"
-echo "-------------------------------------------------"
+echo "--------------------------------------"
+echo "--- Recyclarr has been uninstalled ---"
+echo "--------------------------------------"
 </INLINE>
 </FILE>
 </PLUGIN>

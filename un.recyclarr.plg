@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name       "un.recyclarr">
   <!ENTITY author     "fabricionaweb">
-  <!ENTITY version    "2023.03.21">
+  <!ENTITY version    "2023.03.21-1">
   <!ENTITY binVersion "v4.3.0">
   <!ENTITY binMD5     "1b914384928e794dfe5547ab5bd0d6de">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
@@ -26,6 +26,9 @@
 <CHANGES>
   ##&name;
   ###&version;
+  - Fix the message about cron time. Unraid runs at 4:40 - see crontab -l
+
+  ###2023.03.21
   - Add secrets.yml
 
   ###2023.03.20-1
@@ -101,7 +104,7 @@ The 'post-install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "-----------------------------------------------------"
-echo "--- Default cronjob set to run daily at 02:00 -------"
+echo "--- Default cronjob set to run daily at 4:40am ------"
 echo "--- Upload your .yml config files to: ---------------"
 echo "--- /boot/config/plugins/un.recyclarr/configs -------"
 echo "--- Add the secrets to: -----------------------------"

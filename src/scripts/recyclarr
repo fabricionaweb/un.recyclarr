@@ -1,0 +1,12 @@
+#!/bin/bash
+
+FIFO=/tmp/recyclarr
+mkfifo $FIFO
+/usr/local/bin/recyclarr sync 2>&1 >$FIFO &
+
+while read LINE; do
+  curl -H "Content-Type: text/plain" \
+    -X POST --data "$LINE" \
+    --unix-socket /var/run/nginx.socket \
+    "http://localhost/pub/recyclarr?buffer_length=1"
+done <$FIFO

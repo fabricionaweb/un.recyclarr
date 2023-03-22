@@ -1,0 +1,41 @@
+Menu="Utilities"
+Icon="fa-trash-o"
+Title="Recyclarr"
+---
+<?php
+require $pageroot."/include/Setup.php";
+?>
+
+
+<!-- Static assets -->
+<script type="text/javascript" async src="<?=autov("/plugins/".Plugin::NAME."/assets/scripts.js")?>"></script>
+
+
+<!-- Settings -->
+<!-- First section always have title -->
+<form markdown="1" method="POST" name="recyclarrSettings" target="progressFrame">
+Run on schedule:
+: <select name="schedule">
+    <?=mk_option($schedule, Schedule::DISABLED, "Disabled")?>
+    <?=mk_option($schedule, Schedule::HOURLY, "Hourly")?>
+    <?=mk_option($schedule, Schedule::DAILY, "Daily")?>
+    <?=mk_option($schedule, Schedule::WEEKLY, "Weekly")?>
+    <?=mk_option($schedule, Schedule::MONTLY, "Montly")?>
+  </select>
+
+> **Disabled** Do not run it programatic, only manual<br>
+> **Hourly** Runs hourly at 47 minutes after the hour<br>
+> **Daily** Runs daily at 4:40 every day<br>
+> **Weekly** Runs weekly at 4:30 on the first day of the week<br>
+> **Montly** Run monthly  at 4:20 on the first day of the month
+
+<button name="run">Run now</button> Click to run it manually
+: <button type="submit" disabled>
+    Apply
+  </button>
+</form>
+
+
+<!-- Logs -->
+<!-- TODO -->
+<!-- <?=mk_title("Logs", "fa-list")?> -->

@@ -6,6 +6,7 @@
   <!ENTITY version    "2023.03.21-2">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
   <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
+  <!ENTITY launch     "Settings/Recyclarr">
   <!ENTITY flash      "/boot/config/plugins/&name;">
   <!ENTITY emhttp     "/usr/local/emhttp/plugins/&name;">
   <!ENTITY appdata    "/root/.config/recyclarr">
@@ -19,6 +20,7 @@
   author="&author;"
   version="&version;"
   pluginURL="&pluginURL;"
+  launch="&launch;"
   support="&gitURL;/issues"
   icon="fa-trash-o"
   min="6.11.5"

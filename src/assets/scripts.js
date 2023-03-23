@@ -31,29 +31,36 @@ $(function () {
     // Start listener
     nchan.start()
 
-    // Call the script to run
-    $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr" }).then(
-      () => {
-        // Open SweetAlert modal
-        swal(
-          {
-            title: "recyclarr sync",
-            text: "<pre id='swaltext' style='white-space:pre-wrap'></pre><hr>",
-            customClass: "nchan",
-            html: true,
-            animation: "none",
-            showConfirmButton: true,
-            confirmButtonText: "Done",
-          },
-          () => {
-            // Enable the button again
-            this.disabled = false
+    // When close SweetAlert modal
+    const onManualRunClose = () => {
+      // Enable the button again
+      this.disabled = false
 
-            // Stop nchan listener
-            nchan.stop()
-          }
-        )
-      }
+      // Stop nchan listener
+      nchan.stop()
+    }
+
+    // Open SweetAlert modal
+    const onManualRunLoad = () => {
+      swal(
+        {
+          title: "recyclarr sync",
+          text: "<pre id='swaltext' style='white-space:pre-wrap'></pre><hr>",
+          customClass: "nchan",
+          html: true,
+          animation: "none",
+          showConfirmButton: true,
+          confirmButtonText: "Done",
+        },
+        onManualRunClose
+      )
+    }
+
+    // Call the script to run
+    $.post(
+      "/webGui/include/StartCommand.php",
+      { cmd: "recyclarr" },
+      onManualRunLoad
     )
   })
 })

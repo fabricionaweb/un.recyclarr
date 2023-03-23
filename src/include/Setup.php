@@ -1,5 +1,13 @@
 <?php
 
 // Import dependencies
-require $pageroot."/include/Constants.php";
-require $pageroot."/include/Helpers.php";
+require "Constants.php";
+require "Helpers.php";
+require "Settings.php";
+
+// If receive schedule changes
+if ( isset($_POST["schedule"]) ) {
+  Settings::save($_POST["schedule"]);
+}
+
+$settings = new Settings();

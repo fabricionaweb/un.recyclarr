@@ -8,19 +8,19 @@ require $pageroot."/include/Setup.php";
 
 
 <!-- Static assets -->
-<script type="text/javascript" async src="<?=autov("/plugins/".Plugin::NAME."/assets/scripts.js")?>"></script>
+<script type="text/javascript" async src="<?autov("/plugins/".Plugin::NAME."/assets/scripts.js")?>"></script>
 
 
 <!-- Settings -->
 <!-- First section always have title -->
-<form markdown="1" method="POST" name="recyclarrSettings" target="progressFrame">
+<form markdown="1" method="POST" name="recyclarrSettings">
 Run on schedule:
 : <select name="schedule">
-    <?=mk_option($schedule, Schedule::DISABLED, "Disabled")?>
-    <?=mk_option($schedule, Schedule::HOURLY, "Hourly")?>
-    <?=mk_option($schedule, Schedule::DAILY, "Daily")?>
-    <?=mk_option($schedule, Schedule::WEEKLY, "Weekly")?>
-    <?=mk_option($schedule, Schedule::MONTLY, "Montly")?>
+    <?=mk_option($settings->schedule, Schedule::DISABLED, "Disabled")?>
+    <?=mk_option($settings->schedule, Schedule::HOURLY,   "Hourly")?>
+    <?=mk_option($settings->schedule, Schedule::DAILY,    "Daily")?>
+    <?=mk_option($settings->schedule, Schedule::WEEKLY,   "Weekly")?>
+    <?=mk_option($settings->schedule, Schedule::MONTLY,   "Montly")?>
   </select>
 
 > **Disabled** Do not run it programatic, only manual<br>

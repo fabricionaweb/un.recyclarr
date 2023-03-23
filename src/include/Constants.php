@@ -2,7 +2,8 @@
 
 // Plugin variables
 class Plugin {
-  const NAME = 'un.recyclarr';
+  const NAME      = 'un.recyclarr';
+  const CRON_FILE = 'recyclarr.sh';
 }
 
 // Form values

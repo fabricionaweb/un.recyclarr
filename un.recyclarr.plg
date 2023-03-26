@@ -55,7 +55,7 @@
 <!--
 Get the plugin and save in the flash
 -->
-<FILE Name="&flash;/&name;-&version;.txz" Run="upgradepkg --install-new">
+<FILE Name="&flash;/&name;-&version;.txz" Run="upgradepkg --install-new --reinstall">
 <URL>&gitURL;/releases/download/&version;/&name;.txz</URL>
 <MD5>&md5;</MD5>
 </FILE>

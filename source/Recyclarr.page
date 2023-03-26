@@ -16,11 +16,11 @@ require $pageroot."/include/Setup.php";
 <form markdown="1" method="POST" name="recyclarrSettings">
 Run on schedule:
 : <select name="schedule">
-    <?=mk_option($settings->schedule, Schedule::DISABLED, "Disabled")?>
-    <?=mk_option($settings->schedule, Schedule::HOURLY,   "Hourly")?>
-    <?=mk_option($settings->schedule, Schedule::DAILY,    "Daily")?>
-    <?=mk_option($settings->schedule, Schedule::WEEKLY,   "Weekly")?>
-    <?=mk_option($settings->schedule, Schedule::MONTLY,   "Montly")?>
+    <?=mk_option($settings->schedule, null,     "Disabled")?>
+    <?=mk_option($settings->schedule, 'HOURLY', "Hourly")?>
+    <?=mk_option($settings->schedule, 'DAILY',  "Daily")?>
+    <?=mk_option($settings->schedule, 'WEEKLY', "Weekly")?>
+    <?=mk_option($settings->schedule, 'MONTLY', "Montly")?>
   </select>
 
 > **Disabled** Do not run it programatic, only manual<br>

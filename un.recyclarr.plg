@@ -106,11 +106,11 @@ The 'remove' script
 -->
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
-find /etc/cron.* -type f -name recyclarr.sh -delete
-rm -rf /usr/local/bin/recyclarr
-rm -rf &emhttp;
+removepkg &name;-&version;
 rm -rf &flash;
+rm -rf &emhttp;
 rm -rf &appdata;
+/usr/local/sbin/update_cron
 echo "--------------------------------------"
 echo "--- Recyclarr has been uninstalled ---"
 echo "--------------------------------------"

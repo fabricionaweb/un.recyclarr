@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name       "un.recyclarr">
   <!ENTITY author     "fabricionaweb">
-  <!ENTITY version    "2023.03.26">
+  <!ENTITY version    "2023.03.26-1">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
   <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5        "8430ddf750840ccfaf82a915f4b00c66">
+  <!ENTITY md5        "fdc22c854104bd476bd63abdf2ace236">
   <!ENTITY launch     "Settings/Recyclarr">
   <!ENTITY flash      "/boot/config/plugins/&name;">
   <!ENTITY emhttp     "/usr/local/emhttp/plugins/&name;">
@@ -26,6 +26,9 @@
 
 <CHANGES>
   ##&name;
+  ###2023.03.26-1
+  - Fix scripts permission
+
   ###2023.03.26
   - Add interface with manual run and cron settings
   - Create txz installer

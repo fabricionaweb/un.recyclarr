@@ -3,7 +3,7 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name       "un.recyclarr">
   <!ENTITY author     "fabricionaweb">
-  <!ENTITY version    "2023.03.26-1">
+  <!ENTITY version    "2023.03.26-2">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
   <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
   <!ENTITY md5        "fdc22c854104bd476bd63abdf2ace236">
@@ -26,6 +26,9 @@
 
 <CHANGES>
   ##&name;
+  ###2023.03.26-2
+  - Dont create cron during install
+
   ###2023.03.26-1
   - Fix scripts permission
 
@@ -85,22 +88,11 @@ ln -sf &flash;/configs -T &appdata;/configs
 </FILE>
 
 <!--
-Create the cronjob
--->
-<FILE Name="/etc/cron.daily/recyclarr.sh" Mode="700">
-<INLINE>
-#!/bin/bash
-/usr/local/bin/recyclarr sync | logger -t recyclarr
-</INLINE>
-</FILE>
-
-<!--
 The 'post-install' script
 -->
 <FILE Run="/bin/bash">
 <INLINE>
 echo "-----------------------------------------------------"
-echo "--- Default cronjob set to run daily at 4:40am ------"
 echo "--- Upload your .yml config files to: ---------------"
 echo "--- /boot/config/plugins/un.recyclarr/configs -------"
 echo "--- Add the secrets to: -----------------------------"
@@ -114,7 +106,7 @@ The 'remove' script
 -->
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
-rm -rf /etc/cron.daily/recyclarr.sh
+find /etc/cron.* -type f -name recyclarr.sh -delete
 rm -rf /usr/local/bin/recyclarr
 rm -rf &emhttp;
 rm -rf &flash;

@@ -30,7 +30,7 @@ checksum() {
   # change workdir to package
   cd package
   # create md5 file
-  md5sum un.recyclarr.txz >un.recyclarr.txz.md5
+  md5sum un.recyclarr.txz | tee un.recyclarr.txz.md5
   # restore workdir
   cd ../
 }

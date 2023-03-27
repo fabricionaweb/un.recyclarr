@@ -4,11 +4,6 @@ class Settings {
   public $schedule;
 
   function __construct() {
-    // If receive schedule changes
-    if (isset($_POST["schedule"])) {
-      self::saveSchedule(@constant("Schedule::".$_POST["schedule"]));
-    }
-
     $this->schedule = self::getSchedule();
   }
 
@@ -25,7 +20,7 @@ class Settings {
     return $schedule;
   }
 
-  private static function saveSchedule($schedule) {
+  public static function saveSchedule($schedule) {
     $fileContents = "";
 
     if ($schedule) {

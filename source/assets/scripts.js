@@ -1,19 +1,26 @@
 // Document onload
 $(function () {
-  // Selectors
+  // Elements
   const $form = $("form[name=recyclarrSettings]")
   const $schedule = $form.find("[name=schedule]")
-  const $apply = $form.find("[type=submit]")
+  const $apply = $form.find("[name=apply]")
   const $run = $form.find("[name=run]")
+  const $response = $form.find("#response")
   // Variables
-  const currentSchedule = $schedule.val()
+  let currentSchedule = $schedule.val()
+  // Objects
   const nchan = new NchanSubscriber("/sub/recyclarr", {
     subscriber: "websocket",
   })
+  const Services = {
+    run: () => $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr" }),
+    save: (schedule) =>
+      $.post("/plugins/un.recyclarr/Update.php", { schedule }),
+  }
 
   // Register the listener
   nchan.on("message", function (data) {
-    // To prevent previous process output messages
+    // To prevent previous messages
     if (data === "_DONE_") return
 
     const $box = $("pre#swaltext")
@@ -23,28 +30,24 @@ $(function () {
 
   // Disable apply button when theres no change
   $schedule.on("change", function () {
+    // Clean feedback message
+    $response.html("")
+    // Disable apply button if same value
     $apply.attr("disabled", this.value === currentSchedule)
   })
 
   // Dispatch when click on Run manual
   $run.on("click", function () {
-    // Disable the button to prevent miss click
-    this.disabled = true
-
-    // Start listener
-    nchan.start()
-
     // When close SweetAlert modal
     const onManualRunClose = () => {
       // Enable the button again
       this.disabled = false
-
       // Stop nchan listener
       nchan.stop()
     }
 
     // Open SweetAlert modal
-    const onManualRunLoad = () => {
+    const onRunLoad = () => {
       swal(
         {
           title: "recyclarr sync",
@@ -59,11 +62,38 @@ $(function () {
       )
     }
 
-    // Call the script to run
-    $.post(
-      "/webGui/include/StartCommand.php",
-      { cmd: "recyclarr" },
-      onManualRunLoad
-    )
+    // Disable the button to prevent miss click
+    this.disabled = true
+    // Start listener
+    nchan.start()
+    // Send request to run (manual)
+    Services.run().then(onRunLoad)
+  })
+
+  // Dispatch when click on Apply
+  $form.on("submit", function (event) {
+    event.preventDefault()
+    // Get selected schedule value
+    const { value: schedule } = this.schedule
+    // Disable apply button to prevent miss click
+    this.apply.disabled = true
+
+    const onSaveLoad = ({ message }) => {
+      // Change current selected value
+      currentSchedule = schedule
+      // Show feedback
+      $response.removeClass("failed").addClass("passed").html(message)
+    }
+
+    const onSaveError = ({ responseJSON }) => {
+      // Log the error
+      console.error("onSaveError", responseJSON?.message)
+      // Enable apply button again
+      this.apply.disabled = false
+      // Show feedback
+      $response.removeClass("passed").addClass("failed").html("Error saving")
+    }
+
+    Services.save(schedule).then(onSaveLoad).catch(onSaveError)
   })
 })

@@ -30,7 +30,9 @@ Run on schedule:
 > **Montly** Run monthly  at 4:20 on the first day of the month
 
 <button type="button" name="run">Run now</button> Click to run it manually
-: <button type="submit" disabled>Apply</button>
+: <button type="submit" name="apply" disabled>Apply</button>
+<span id="response"></span>
+
 </form>
 
 

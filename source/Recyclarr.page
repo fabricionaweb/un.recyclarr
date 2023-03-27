@@ -8,7 +8,7 @@ require $pageroot."/include/Setup.php";
 
 
 <!-- Static assets -->
-<script type="text/javascript" async src="<?autov("/plugins/".Plugin::NAME."/assets/scripts.js")?>"></script>
+<script type="text/javascript" async src="<?autov("/plugins/un.recyclarr/assets/scripts.js")?>"></script>
 
 
 <!-- Settings -->

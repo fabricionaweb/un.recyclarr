@@ -6,7 +6,7 @@
   <!ENTITY version    "2023.03.27">
   <!ENTITY gitURL     "https://github.com/&author;/&name;">
   <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5        "467113f5a2d1b02d698e6ba97a890a8c">
+  <!ENTITY md5        "415dd2a8ceb2f63d2e53f0d76c3b5783">
   <!ENTITY launch     "Settings/Recyclarr">
   <!ENTITY flash      "/boot/config/plugins/&name;">
   <!ENTITY emhttp     "/usr/local/emhttp/plugins/&name;">
@@ -28,6 +28,7 @@
   ##&name;
   ###2023.03.27
   - Fix manual run on Firefox
+  - Improve manual run bash script
 
   ###2023.03.26-3
   - Rewrite the cron logic

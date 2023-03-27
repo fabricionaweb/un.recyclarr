@@ -13,6 +13,9 @@ $(function () {
 
   // Register the listener
   nchan.on("message", function (data) {
+    // To prevent previous process output messages
+    if (data === "_DONE_") return
+
     const $box = $("pre#swaltext")
     $box.append(`${data}\n`)
     $box.scrollTop($box[0]?.scrollHeight)

@@ -1,12 +1,25 @@
 #!/bin/bash
 
-FIFO=/tmp/recyclarr
-mkfifo $FIFO
-/usr/local/bin/recyclarr sync 2>&1 >$FIFO &
-
-while read LINE; do
-  curl -H "Content-Type: text/plain" \
-    -X POST --data "$LINE" \
+# Publish messages to nchan sub
+publish() {
+  curl -H "Content-Type: text/plain" -X POST --data "$1" \
     --unix-socket /var/run/nginx.socket \
     "http://localhost/pub/recyclarr?buffer_length=1"
-done <$FIFO
+}
+
+# Create temporary file to hold output
+FIFO=$(mktemp -u)
+mkfifo $FIFO
+
+# Run the program async and write output lines in that file
+/usr/local/bin/recyclarr sync 2>&1 >$FIFO &
+
+# Listen output and publish it to nchan
+while read LINE; do publish "$LINE"; done <$FIFO
+
+# Wait program ends and send message to know its done
+wait
+publish "_DONE_"
+
+# Delete the temporary fifo
+rm $FIFO

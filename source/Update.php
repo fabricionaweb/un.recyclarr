@@ -5,17 +5,27 @@ require "include/Setup.php";
 header("Content-Type: application/json");
 
 try {
-  // If not valid post and xhr
+  // If not post and xhr request
   if (!isset($_POST["schedule"]) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
     throw new Error("Not Implemented");
   }
 
-  Settings::saveSchedule(@constant("Schedule::".$_POST["schedule"]));
+  // Try to interpolate if possible, otherwise will be null
+  $schedule = @constant("Schedule::".$_POST["schedule"]);
+  $custom   = $schedule === Schedule::CUSTOM ? trim($_POST["custom"]) : null;
 
-  echo json_encode(array("message" => "Saved"));
+  // Validate custom cron
+  if (isset($custom) && !preg_match(Plugin::CRON_REGEX, $custom, $matches)) {
+    throw new Error("Invalid custom cron");
+  }
+
+  // Save with expression or enum
+  Settings::saveSchedule(trim($matches[1]) ?: $schedule);
+
+  echo json_encode(["message" => "Saved"]);
 } catch(Throwable $e) {
   // Internal server error
   http_response_code(500);
 
-  echo json_encode(array("message" => $e->getMessage()));
+  echo json_encode(["message" => $e->getMessage()]);
 }

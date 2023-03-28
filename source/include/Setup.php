@@ -5,5 +5,5 @@ require "Constants.php";
 require "Helpers.php";
 require "Settings.php";
 
-// Start settings
+// Instance settings
 $settings = new Settings();

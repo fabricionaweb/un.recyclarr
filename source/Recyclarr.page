@@ -9,6 +9,7 @@ require $pageroot."/include/Setup.php";
 
 <!-- Static assets -->
 <script type="text/javascript" async src="<?autov("/plugins/un.recyclarr/assets/scripts.js")?>"></script>
+<style type="text/css">.hidden { visibility:hidden; }</style>
 
 
 <!-- Settings -->
@@ -16,18 +17,27 @@ require $pageroot."/include/Setup.php";
 <form markdown="1" method="POST" name="recyclarrSettings">
 Run on schedule:
 : <select name="schedule">
-    <?=mk_option($settings->schedule, null,     "Disabled")?>
-    <?=mk_option($settings->schedule, 'HOURLY', "Hourly")?>
-    <?=mk_option($settings->schedule, 'DAILY',  "Daily")?>
-    <?=mk_option($settings->schedule, 'WEEKLY', "Weekly")?>
-    <?=mk_option($settings->schedule, 'MONTLY', "Montly")?>
+    <?=mk_option($settings->schedule, "DISABLED", "Disabled")?>
+    <?=mk_option($settings->schedule, "HOURLY",   "Hourly")?>
+    <?=mk_option($settings->schedule, "DAILY",    "Daily")?>
+    <?=mk_option($settings->schedule, "WEEKLY",   "Weekly")?>
+    <?=mk_option($settings->schedule, "MONTLY",   "Montly")?>
+    <?=mk_option($settings->schedule, "CUSTOM",   "Custom")?>
   </select>
+  <input
+    name="custom"
+    type="text"
+    maxlength="20"
+    class="narrow <?=$settings->schedule !== "CUSTOM" ? "hidden" : ""?>"
+    value="<?=$settings->custom?>"
+  />
 
 > **Disabled** Do not run it programatic, only manual<br>
 > **Hourly** Runs hourly at 47 minutes after the hour<br>
 > **Daily** Runs daily at 4:40 every day<br>
 > **Weekly** Runs weekly at 4:30 on the first day of the week<br>
-> **Montly** Run monthly  at 4:20 on the first day of the month
+> **Montly** Run monthly  at 4:20 on the first day of the month<br>
+> **Custom** Allows you to enter the expression.
 
 <button type="button" name="run">Run now</button> Click to run it manually
 : <button type="submit" name="apply" disabled>Apply</button>

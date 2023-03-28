@@ -1,16 +1,16 @@
 <?xml version='1.0' standalone='yes'?>
 
 <!DOCTYPE PLUGIN [
-  <!ENTITY name       "un.recyclarr">
-  <!ENTITY author     "fabricionaweb">
-  <!ENTITY version    "2023.03.28-1">
-  <!ENTITY gitURL     "https://github.com/&author;/&name;">
-  <!ENTITY pluginURL  "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5        "fa3a30bedb54231b3ed196b736960348">
-  <!ENTITY launch     "Settings/Recyclarr">
-  <!ENTITY flash      "/boot/config/plugins/&name;">
-  <!ENTITY emhttp     "/usr/local/emhttp/plugins/&name;">
-  <!ENTITY appdata    "/root/.config/recyclarr">
+  <!ENTITY name      "un.recyclarr">
+  <!ENTITY author    "fabricionaweb">
+  <!ENTITY version   "2023.03.28-1">
+  <!ENTITY gitURL    "https://github.com/&author;/&name;">
+  <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
+  <!ENTITY md5       "fa3a30bedb54231b3ed196b736960348">
+  <!ENTITY launch    "Settings/Recyclarr">
+  <!ENTITY flash     "/boot/config/plugins/&name;">
+  <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
+  <!ENTITY appdata   "/root/.config/recyclarr">
 ]>
 
 <PLUGIN
@@ -24,55 +24,57 @@
   min="6.11.5"
 >
 
+<!--
+Release notes
+-->
 <CHANGES>
-  ##&name;
-  ###2023.03.28-1
-  - Use the same script to run cron and manual
-  - Manual run now send logs to syslog
+### &version;
+- Use the same script to run cron and manual
+- Manual run now send logs to syslog
 
-  ###2023.03.28
-  - Save settings using xhr request
+### 2023.03.28
+- Save settings using xhr request
 
-  ###2023.03.27-1
-  - Add EOL to cron file generation
+### 2023.03.27-1
+- Add EOL to cron file generation
 
-  ###2023.03.27
-  - Fix manual run on Firefox
-  - Improve manual run bash script
+### 2023.03.27
+- Fix manual run on Firefox
+- Improve manual run bash script
 
-  ###2023.03.26-3
-  - Rewrite the cron logic
-  - Force reinstall package
-  - Update the uninstall script
+### 2023.03.26-3
+- Rewrite the cron logic
+- Force reinstall package
+- Update the uninstall script
 
-  ###2023.03.26-2
-  - Dont create cron during install
+### 2023.03.26-2
+- Dont create cron during install
 
-  ###2023.03.26-1
-  - Fix scripts permission
+### 2023.03.26-1
+- Fix scripts permission
 
-  ###2023.03.26
-  - Add interface with manual run and cron settings
-  - Create txz installer
+### 2023.03.26
+- Add interface with manual run and cron settings
+- Create txz installer
 
-  ###2023.03.21-2
-  - Save the plugin in the flash
+### 2023.03.21-2
+- Save the plugin in the flash
 
-  ###2023.03.21-1
-  - Fix the message about cron time. Unraid runs at 4:40 - see crontab -l
+### 2023.03.21-1
+- Fix the message about cron time. Unraid runs at 4:40 - see crontab -l
 
-  ###2023.03.21
-  - Add secrets.yml
+### 2023.03.21
+- Add secrets.yml
 
-  ###2023.03.20-1
-  - Set folders permission 644
+### 2023.03.20-1
+- Set folders permission 644
 
-  ###2023.03.20
-  - First release
+### 2023.03.20
+- First release
 </CHANGES>
 
 <!--
-Get the plugin and save in the flash
+Get the plugin and save
 -->
 <FILE Name="&flash;/&name;-&version;.txz" Run="upgradepkg --install-new --reinstall">
 <URL>&gitURL;/releases/download/&version;/&name;.txz</URL>
@@ -85,7 +87,7 @@ The 'pre-install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Removing old versions"
-rm -f $(ls &flash;/*.txz 2>/dev/null | grep -v &version;)
+find &flash; -type f -name "&name;-*.txz" ! -name "&name;-&version;.txz" -delete
 </INLINE>
 </FILE>
 
@@ -126,9 +128,7 @@ The 'remove' script
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
 removepkg &name;-&version;
-rm -rf &flash;
-rm -rf &emhttp;
-rm -rf &appdata;
+rm -rf &flash; &emhttp; &appdata;
 /usr/local/sbin/update_cron
 echo "--------------------------------------"
 echo "--- Recyclarr has been uninstalled ---"

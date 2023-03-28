@@ -46,6 +46,8 @@ You can also run it manually `recyclarr sync` in the shell. See the [docs](https
 
 ### Logs
 
-The cronjob will pipe the output to [syslog](https://wiki.unraid.net/Viewing_the_System_Log). You can see the logs using the Unraid interface or running `tail -n 100 /var/log/syslog | grep recyclarr`
+Output is send to [syslog](https://wiki.unraid.net/Viewing_the_System_Log). You can see the logs using the Unraid interface or running:
 
-Manual runs displays the output but does not add to syslog.
+```bash
+tail -n 100 /var/log/syslog | grep recyclarr
+```

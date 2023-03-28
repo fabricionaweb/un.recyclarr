@@ -13,7 +13,8 @@ $(function () {
     subscriber: "websocket",
   })
   const Services = {
-    run: () => $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr" }),
+    run: () =>
+      $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan" }),
     save: (schedule) =>
       $.post("/plugins/un.recyclarr/Update.php", { schedule }),
   }
@@ -21,7 +22,7 @@ $(function () {
   // Register the listener
   nchan.on("message", function (data) {
     // To prevent previous messages
-    if (data === "_DONE_") return
+    if (data === "[DONE]") return
 
     const $box = $("pre#swaltext")
     $box.append(`${data}\n`)
@@ -94,6 +95,7 @@ $(function () {
       $response.removeClass("passed").addClass("failed").html("Error saving")
     }
 
+    // Send request to save
     Services.save(schedule).then(onSaveLoad).catch(onSaveError)
   })
 })

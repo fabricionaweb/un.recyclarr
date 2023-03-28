@@ -1,10 +1,19 @@
-#!/bin/bash
+#!/bin/bash -e
+
+# Use fisrt argument to nchan
+ARG1=$1
 
 # Publish messages to nchan sub
 publish() {
-  curl -H "Content-Type: text/plain" -X POST --data "$1" \
-    --unix-socket /var/run/nginx.socket \
-    "http://localhost/pub/recyclarr?buffer_length=1"
+  # Always log to syslog
+  logger -t recyclarr "$1"
+
+  # Publish to frontend if the argument is nchan
+  if [[ "$ARG1" == "nchan" ]]; then
+    curl -H "Content-Type: text/plain" -X POST --data "$1" \
+      --unix-socket /var/run/nginx.socket \
+      "http://localhost/pub/recyclarr?buffer_length=1"
+  fi
 }
 
 # Create temporary file to hold output
@@ -14,12 +23,10 @@ mkfifo $FIFO
 # Run the program async and write output lines in that file
 /usr/local/bin/recyclarr sync 2>&1 >$FIFO &
 
-# Listen output and publish it to nchan
+# Listen output and publish messages
 while read LINE; do publish "$LINE"; done <$FIFO
 
-# Wait program ends and send message to know its done
+# Wait program ends and send last message
 wait
-publish "_DONE_"
-
-# Delete the temporary fifo
+publish "[DONE]"
 rm $FIFO

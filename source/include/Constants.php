@@ -4,7 +4,7 @@
 class Plugin {
   const CRON_FILE    = "/boot/config/plugins/un.recyclarr/recyclarr.cron";
   const CRON_REGEX   = "/^((((\d+,)+\d+|(\d+(\/|-)\d+)|\d+|\*) ?){5,7})/m";
-  const CRON_COMMAND = "/usr/local/bin/recyclarr sync |& logger -t recyclarr";
+  const CRON_COMMAND = "/usr/local/emhttp/plugins/un.recyclarr/scripts/recyclarr";
 }
 
 // Form values

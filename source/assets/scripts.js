@@ -7,6 +7,7 @@ $(function () {
   const $apply = $form.find("[name=apply]")
   const $run = $form.find("[name=run]")
   const $response = $form.find("#response")
+  const $create = $("[name=create]")
   // Variables
   let currentSchedule = $schedule.val()
   let currentCustom = $custom.val()
@@ -19,6 +20,8 @@ $(function () {
       $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan" }),
     save: ({ schedule, custom }) =>
       $.post("/plugins/un.recyclarr/Update.php", { schedule, custom }),
+    create: (filename) =>
+      $.post("/plugins/un.recyclarr/Create.php", { filename }),
   }
 
   // Register the listener
@@ -117,5 +120,47 @@ $(function () {
 
     // Send request to save
     Services.save({ schedule, custom }).then(onSaveLoad).catch(onSaveError)
+  })
+
+  // Create config file
+  $create.on("click", function () {
+    const onCreateLoad = () => {
+      // Just refresh the page
+      window.refresh()
+    }
+
+    const onCreateError = ({ responseJSON = {} }) => {
+      const { message = "Internal error" } = responseJSON
+      // Log the error
+      console.error("onCreateError", message)
+      // Show feedback
+      swal.showInputError(message)
+    }
+
+    const onDialogConfirm = (filename) => {
+      // Quicky validate filename (backend does it better)
+      if (!filename) {
+        // || /^[\w\-. ]+$/.test(filename) === false
+        return swal.showInputError(
+          "Invalid file name. Dont use especial characters"
+        )
+      }
+      // Send the request
+      Services.create(filename).then(onCreateLoad).catch(onCreateError)
+    }
+
+    // Open SweetAlert modal
+    swal(
+      {
+        title: "Create config file",
+        text: "Enter the file name",
+        type: "input",
+        animation: "none",
+        showLoaderOnConfirm: true,
+        showCancelButton: true,
+        closeOnConfirm: false,
+      },
+      onDialogConfirm
+    )
   })
 })

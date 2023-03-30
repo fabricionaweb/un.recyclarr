@@ -4,10 +4,13 @@
 
 .flex {
   display: flex;
+  flex-wrap: wrap;
 }
 
-.user-list {
+/* Extends dynamic styles */
+div.user-list {
   justify-content: center;
+  margin-right: 24px;
 }
 
 div.user-list img {
@@ -15,6 +18,20 @@ div.user-list img {
   margin: 10px auto;
 }
 
-.user-list a {
+div.user-list a {
   text-align: center;
+}
+
+/* Extends sweet-alert styles */
+.sweet-alert .sa-error-container {
+  background-color: transparent;
+  padding: 0 !important;
+}
+
+.sweet-alert .sa-confirm-button-container .confirm[disabled] {
+  background-color: transparent !important;
+}
+
+.sweet-alert .sa-confirm-button-container .la-ball-fall {
+  display: none;
 }

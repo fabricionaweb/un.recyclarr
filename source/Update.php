@@ -16,7 +16,11 @@ try {
 
   // Validate custom cron
   if (isset($custom) && !preg_match(Plugin::CRON_REGEX, $custom, $matches)) {
-    throw new Error("Invalid custom cron");
+    // Not Acceptable
+    http_response_code(406);
+
+    echo json_encode(["message" => "Invalid cron"]);
+    exit();
   }
 
   // Save with expression or enum

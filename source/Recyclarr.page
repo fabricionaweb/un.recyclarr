@@ -48,9 +48,8 @@ Run on schedule:
 <!-- Configuration files -->
 <div id="title">Configuration</div>
 <div class="flex">
-
-  <!-- secrets.yml should be permanent file -->
-  <?=mk_config_file("secrets", "/Settings/Recyclarr/Edit?name=secrets")?>
+  <!-- Secrets should always exist -->
+  <?=mk_config_file("secrets", "/Settings/Recyclarr/Edit?name=secrets", "warning")?>
 
   <!-- Loop over configs folder -->
   <?php

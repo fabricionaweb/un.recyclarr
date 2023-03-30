@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" fill-rule="evenodd" clip-rule="evenodd" viewBox="0 0 335 447">
+  <g transform="translate(-845.32 -636.525) scale(4.16667)">
+    <clipPath id="a">
+      <path d="m252 156.889 27 27v72h-72v-99h45Z"/>
+    </clipPath>
+    <g clip-path="url(#a)">
+      <path fill="url(#b)" fill-rule="nonzero" d="M207 255.889v-99h72v99h-72Z"/>
+    </g>
+  </g>
+  <path fill="none" stroke="#7192a1" stroke-width="8.33334" d="m204.68 17.18 112.5 112.5v300h-300V17.18h187.5Z"/>
+  <g transform="translate(-845.32 -636.525) scale(4.16667)">
+    <clipPath id="c">
+      <path d="m252 156.889 27 27h-27v-27Z"/>
+    </clipPath>
+    <g clip-path="url(#c)">
+      <path fill="url(#d)" fill-rule="nonzero" d="m238.5 170.389 13.5-13.5 27 27-13.5 13.5-27-27Z"/>
+    </g>
+  </g>
+  <path fill="none" stroke="#7192a1" stroke-linejoin="bevel" stroke-width="8.33334" d="m204.68 17.18 112.5 112.5h-112.5V17.18Z"/>
+  <text x="126" y="246.889" fill="#4c6c7b" font-family="sans-serif" font-size="28" font-weight="700" transform="translate(-481.32 -636.525) scale(4.16667)">YML</text>
+  <defs>
+    <linearGradient id="b" x1="0" x2="1" y1="0" y2="0" gradientTransform="rotate(-90 249.444 6.445) scale(98.9995)" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#c8d4db"/>
+      <stop offset="100%" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="d" x1="0" x2="1" y1="0" y2="0" gradientTransform="rotate(-45 347.973 -212.247) scale(19.0923)" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fff"/>
+      <stop offset="81%" stop-color="#c5d1d8"/>
+      <stop offset="100%" stop-color="#92a6b1"/>
+    </linearGradient>
+  </defs>
+</svg>

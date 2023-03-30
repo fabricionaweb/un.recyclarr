@@ -1,6 +1,7 @@
 <?php
 
-// This doesnt exist native
-function mk_title($title, $ico) {
-  return "<div id='title'><span class='left'>".(!$ico ?: "<i class='title fa $ico'></i>")."$title</span></div>";
+// Returns config files markup
+function mk_config_file($name, $url) {
+  $img = autov("/plugins/un.recyclarr/assets/yml-ico.svg", true);
+  return "<div class='flex user-list'><a href='$url'><img src='$img' />$name</a></div>";
 }

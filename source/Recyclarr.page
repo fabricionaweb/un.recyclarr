@@ -9,13 +9,12 @@ require $pageroot."/include/Setup.php";
 
 <!-- Static assets -->
 <script type="text/javascript" async src="<?autov("/plugins/un.recyclarr/assets/scripts.js")?>"></script>
-<style type="text/css">.hidden { visibility:hidden; }</style>
+<link rel="stylesheet" type="text/css" href="<?autov("/plugins/un.recyclarr/assets/styles.css")?>" />
 
 
-<!-- Settings -->
-<!-- First section always have title -->
-<form markdown="1" method="POST" name="recyclarrSettings">
-
+<!-- Crontab settings -->
+<div style="margin-top:-30px" id="title">Crontab</div>
+<form markdown="1" method="POST" name="crontab">
 Run on schedule:
 : <select name="schedule">
     <?=mk_option($settings->schedule, "DISABLED", "Disabled")?>
@@ -40,13 +39,25 @@ Run on schedule:
 > **Montly** Run monthly  at 4:20 on the first day of the month<br>
 > **Custom** Allows you to enter the expression.
 
-<button type="button" name="run">Run now</button> Click to run it manually
+<button type="button" name="run">Run now</button>
 : <button type="submit" name="apply" disabled>Apply</button>
 <span id="response"></span>
-
 </form>
 
 
-<!-- Logs -->
-<!-- TODO -->
-<!-- <?=mk_title("Logs", "fa-list")?> -->
+<!-- Configuration files -->
+<div id="title">Configuration</div>
+<div class="flex">
+
+  <!-- secrets.yml should be permanent file -->
+  <?=mk_config_file("secrets", "/Settings/Recyclarr/Edit?name=secrets")?>
+
+  <!-- Loop over configs folder -->
+  <?php
+    foreach($settings->files as $file) {
+      echo mk_config_file(pathinfo($file, PATHINFO_FILENAME), "/Settings/Recyclarr/Edit?name=$file");
+    }
+  ?>
+</div>
+
+<button type="button" name="create">New file</button>

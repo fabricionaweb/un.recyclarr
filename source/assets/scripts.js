@@ -1,7 +1,7 @@
 // Document onload
 $(function () {
   // Elements
-  const $form = $("form[name=recyclarrSettings]")
+  const $form = $("form[name=crontab]")
   const $schedule = $form.find("[name=schedule]")
   const $custom = $form.find("[name=custom]")
   const $apply = $form.find("[name=apply]")

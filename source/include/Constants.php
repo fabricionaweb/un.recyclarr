@@ -2,7 +2,9 @@
 
 // Plugin variables
 class Plugin {
-  const CRON_FILE    = "/boot/config/plugins/un.recyclarr/recyclarr.cron";
+  const BOOT_PATH    = "/boot/config/plugins/un.recyclarr";
+  const CONFIGS_DIR  = self::BOOT_PATH."/configs";
+  const CRON_FILE    = self::BOOT_PATH."/recyclarr.cron";
   const CRON_REGEX   = "/^((((\d+,)+(\d+|\*)|((\d+|\*)(\/|-)\d+)|\d+|\*)[ \t]?){5,7})/m";
   const CRON_COMMAND = "/usr/local/emhttp/plugins/un.recyclarr/scripts/recyclarr";
 }

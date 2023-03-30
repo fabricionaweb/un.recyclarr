@@ -3,9 +3,11 @@
 class Settings {
   public $schedule;
   public $custom;
+  public $files;
 
   function __construct() {
     [$this->schedule, $this->custom] = self::getSchedule();
+    $this->files = self::getConfigFiles();
   }
 
   private static function getSchedule() {
@@ -34,5 +36,9 @@ class Settings {
 
     // Reload to /etc/cron.d/root file
     exec("/usr/local/sbin/update_cron");
+  }
+
+  private static function getConfigFiles() {
+    return preg_grep("/\.yml$/", scandir(Plugin::CONFIGS_DIR));
   }
 }

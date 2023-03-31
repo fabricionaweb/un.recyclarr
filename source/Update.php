@@ -5,13 +5,15 @@ require "include/Setup.php";
 header("Content-Type: application/json");
 
 try {
+  $schedule = $_POST["schedule"];
+
   // If not post and xhr request
-  if (!isset($_POST["schedule"]) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
+  if (!isset($schedule) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
     throw new Error("Not Implemented");
   }
 
   // Try to interpolate if possible, otherwise will be null
-  $schedule = @constant("Schedule::".$_POST["schedule"]);
+  $schedule = @constant("Schedule::".$schedule);
   $custom   = $schedule === Schedule::CUSTOM ? trim($_POST["custom"]) : null;
 
   // Validate custom cron

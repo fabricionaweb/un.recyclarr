@@ -141,8 +141,7 @@ $(function () {
 
     const onDialogConfirm = (fileName) => {
       // Quicky validate filename (backend does it better)
-      if (!fileName) {
-        // || /^[\w\-. ]+$/.test(filename) === false
+      if (!fileName || /^[\w\-. ]+$/.test(filename) === false) {
         return swal.showInputError(
           "Invalid file name. Dont use especial characters"
         )

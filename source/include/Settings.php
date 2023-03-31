@@ -24,6 +24,11 @@ class Settings {
     return [$key, $value];
   }
 
+  // Return list of files inside configs folder
+  private static function getConfigFiles() {
+    return preg_grep("/\.yml$/", scandir(Plugin::CONFIGS_DIR));
+  }
+
   // You must validate $expression before call the method
   public static function saveSchedule($expression) {
     $fileContents = "";
@@ -40,12 +45,13 @@ class Settings {
     exec("/usr/local/sbin/update_cron");
   }
 
-  private static function getConfigFiles() {
-    return preg_grep("/\.yml$/", scandir(Plugin::CONFIGS_DIR));
+  // You must validate $fileName before call the method
+  public static function createConfigFile($fileName) {
+    return file_put_contents(Plugin::CONFIGS_DIR."/$fileName", self::$heading.PHP_EOL);
   }
 
-  // You must validate $filename before call the method
-  public static function createConfigFile($filename) {
-    return file_put_contents(Plugin::CONFIGS_DIR."/$filename", self::$heading.PHP_EOL);
+  // You must validate $fileName before call the method
+  public static function getConfigContents($fileName) {
+    return @file_get_contents(Plugin::CONFIGS_DIR."/$fileName");
   }
 }

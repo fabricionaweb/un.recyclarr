@@ -6,15 +6,15 @@ header("Content-Type: application/json");
 
 try {
   // If not post and xhr request
-  if (!isset($_POST["filename"]) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
+  if (!isset($_POST["fileName"]) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
     throw new Error("Not Implemented");
   }
 
   // Extract the filename and fix extension
-  $filename = pathinfo($_POST["filename"], PATHINFO_FILENAME).".yml";
+  $fileName = pathinfo($_POST["fileName"], PATHINFO_FILENAME).".yml";
 
   // Check if exists
-  if (in_array($filename, $settings->files)) {
+  if (in_array($fileName, $settings->files)) {
     // Conflict
     http_response_code(409);
 
@@ -23,9 +23,9 @@ try {
   }
 
   // Create the file
-  Settings::createConfigFile($filename);
+  Settings::createConfigFile($fileName);
 
-  echo json_encode(["message" => "Created", "filename" => $filename]);
+  echo json_encode(["message" => "Created", "fileName" => $fileName]);
 } catch(Throwable $e) {
   // Internal server error
   http_response_code(500);

@@ -8,6 +8,7 @@ $(function () {
   const $run = $form.find("[name=run]")
   const $response = $form.find("#response")
   const $create = $("[name=create]")
+  const $edit = $(".yml-edit")
   // Variables
   let currentSchedule = $schedule.val()
   let currentCustom = $custom.val()
@@ -20,8 +21,9 @@ $(function () {
       $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan" }),
     save: ({ schedule, custom }) =>
       $.post("/plugins/un.recyclarr/Update.php", { schedule, custom }),
-    create: (filename) =>
-      $.post("/plugins/un.recyclarr/Create.php", { filename }),
+    create: (fileName) =>
+      $.post("/plugins/un.recyclarr/Create.php", { fileName }),
+    read: (fileName) => $.get("/plugins/un.recyclarr/Open.php", { fileName }),
   }
 
   // Register the listener
@@ -137,16 +139,16 @@ $(function () {
       swal.showInputError(message)
     }
 
-    const onDialogConfirm = (filename) => {
+    const onDialogConfirm = (fileName) => {
       // Quicky validate filename (backend does it better)
-      if (!filename) {
+      if (!fileName) {
         // || /^[\w\-. ]+$/.test(filename) === false
         return swal.showInputError(
           "Invalid file name. Dont use especial characters"
         )
       }
       // Send the request
-      Services.create(filename).then(onCreateLoad).catch(onCreateError)
+      Services.create(fileName).then(onCreateLoad).catch(onCreateError)
     }
 
     // Open SweetAlert modal
@@ -162,5 +164,22 @@ $(function () {
       },
       onDialogConfirm
     )
+  })
+
+  // Edit yml
+  $(".yml-edit").on("click", function (event) {
+    event.preventDefault()
+
+    // Read url
+    const { search } = new URL(this.href)
+    const params = new URLSearchParams(search)
+    const fileName = params.get("name")
+
+    const onReadLoad = (content) => {
+      console.log(content)
+    }
+
+    // Send request to run (manual)
+    Services.read(fileName).then(onReadLoad)
   })
 })

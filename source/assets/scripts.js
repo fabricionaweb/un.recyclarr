@@ -73,7 +73,7 @@ $(function () {
       swal(
         {
           title: "recyclarr sync",
-          text: "<pre id='swaltext' style='white-space:pre-wrap'></pre><hr>",
+          text: "<pre id='swaltext'></pre><hr>",
           customClass: "nchan",
           html: true,
           animation: "none",

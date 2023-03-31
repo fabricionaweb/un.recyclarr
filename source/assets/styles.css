@@ -23,6 +23,11 @@ div.user-list a {
 }
 
 /* Extends sweet-alert styles */
+pre#swaltext {
+  white-space: pre-wrap;
+  padding-top: 7px;
+}
+
 .sweet-alert .sa-error-container {
   background-color: transparent;
   padding: 0 !important;

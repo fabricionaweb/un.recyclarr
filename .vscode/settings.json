@@ -7,5 +7,6 @@
   "editor.formatOnSaveMode": "file",
   "files.associations": {
     "*.page": "php"
-  }
+  },
+  "editor.rulers": [{ "column": 120 }]
 }

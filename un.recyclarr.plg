@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.04.1">
+  <!ENTITY version   "2023.04.1-1">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "0e5abdae4a84b935ffebdbea6235ad13">
+  <!ENTITY md5       "83df3aaca372abe8aefd1590eb85a29a">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,6 +29,9 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Fix css aligment in configuration section
+
+### 2023.04.1
 - List config files
 - Allow create config files
 - Allow edit config files

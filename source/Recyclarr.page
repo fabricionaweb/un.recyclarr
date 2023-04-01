@@ -8,6 +8,8 @@ require $pageroot."/include/Setup.php";
 
 
 <!-- Static assets -->
+<script>const aceTheme = "<?=(in_array($theme, ['black','gray']) ? 'tomorrow_night' : 'tomorrow')?>";</script>
+<script type="text/javascript" async src="<?autov("/plugins/un.recyclarr/assets/ace-1.5.0/ace.js")?>"></script>
 <script type="text/javascript" async src="<?autov("/plugins/un.recyclarr/assets/scripts.js")?>"></script>
 <link rel="stylesheet" type="text/css" href="<?autov("/plugins/un.recyclarr/assets/styles.css")?>" />
 
@@ -49,12 +51,12 @@ Run on schedule:
 <div id="title">Configuration</div>
 <div class="flex">
   <!-- Secrets should always exist -->
-  <?=mk_config_file("secrets", "/Settings/Recyclarr/Edit?name=secrets", "warning")?>
+  <?=mk_config_file("secrets", "?name=secrets", "warning")?>
 
   <!-- Loop over configs folder -->
   <?php
     foreach($settings->files as $file) {
-      echo mk_config_file(pathinfo($file, PATHINFO_FILENAME), "/Settings/Recyclarr/Edit?name=$file");
+      echo mk_config_file(pathinfo($file, PATHINFO_FILENAME), "?name=$file");
     }
   ?>
 </div>

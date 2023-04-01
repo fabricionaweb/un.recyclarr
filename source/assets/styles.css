@@ -28,6 +28,10 @@ pre#swaltext {
   padding-top: 7px;
 }
 
+pre#swaltext.ace_editor {
+  margin-bottom: 10px;
+}
+
 .sweet-alert .sa-error-container {
   background-color: transparent;
   padding: 0 !important;
@@ -37,6 +41,13 @@ pre#swaltext {
   background-color: transparent !important;
 }
 
-.sweet-alert .sa-confirm-button-container .la-ball-fall {
+.sweet-alert .sa-confirm-button-container .la-ball-fall,
+.sweet-alert .sa-input-error.show {
   display: none;
+}
+
+.sweet-alert.nchan .sa-error-container {
+  position: absolute;
+  left: 50px;
+  bottom: 28px;
 }

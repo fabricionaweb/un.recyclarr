@@ -49,16 +49,18 @@ Run on schedule:
 
 <!-- Configuration files -->
 <div id="title">Configuration</div>
-<div class="flex">
-  <!-- Secrets should always exist -->
-  <?=mk_config_file("secrets", "?name=secrets", "warning")?>
+<div style="padding-left:12px">
+  <div class="flex">
+    <!-- Secrets should always exist -->
+    <?=mk_config_file("secrets", "?name=secrets", "warning")?>
 
-  <!-- Loop over configs folder -->
-  <?php
-    foreach($settings->files as $file) {
-      echo mk_config_file(pathinfo($file, PATHINFO_FILENAME), "?name=$file");
-    }
-  ?>
+    <!-- Loop over configs folder -->
+    <?php
+      foreach($settings->files as $file) {
+        echo mk_config_file(pathinfo($file, PATHINFO_FILENAME), "?name=$file");
+      }
+    ?>
+  </div>
+
+  <button type="button" name="create">New file</button>
 </div>
-
-<button type="button" name="create">New file</button>

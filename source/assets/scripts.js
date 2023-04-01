@@ -17,13 +17,16 @@ $(function () {
     subscriber: "websocket",
   })
   const Services = {
-    run: () =>
-      $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan" }),
-    save: ({ schedule, custom }) =>
-      $.post("/plugins/un.recyclarr/Update.php", { schedule, custom }),
-    create: (fileName) =>
-      $.post("/plugins/un.recyclarr/Create.php", { fileName }),
+    // Run on manual
+    run: () => $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan" }),
+    // Save crontab
+    save: ({ schedule, custom }) => $.post("/plugins/un.recyclarr/Update.php", { schedule, custom }),
+    // Create config file
+    create: (fileName) => $.post("/plugins/un.recyclarr/Create.php", { fileName }),
+    // Read config file
     read: (fileName) => $.get("/plugins/un.recyclarr/Open.php", { fileName }),
+    // Edit config file
+    edit: ({ fileName, contents }) => $.post("/plugins/un.recyclarr/Edit.php", { fileName, contents }),
   }
 
   // Register the listener
@@ -43,25 +46,19 @@ $(function () {
     // For CUSTOM we enable the input
     $custom.toggleClass("hidden", this.value !== "CUSTOM")
     // Disable apply button if same value
-    $apply.attr(
-      "disabled",
-      this.value === currentSchedule && $custom.val() === currentCustom
-    )
+    $apply.attr("disabled", this.value === currentSchedule && $custom.val() === currentCustom)
   })
 
   // Handle the custom changes
   $custom.on("input", function () {
     // Disable apply button if same value
-    $apply.attr(
-      "disabled",
-      this.value === currentCustom && $schedule.val() === currentSchedule
-    )
+    $apply.attr("disabled", this.value === currentCustom && $schedule.val() === currentSchedule)
   })
 
   // Dispatch when click on Run manual
   $run.on("click", function () {
     // When close SweetAlert modal
-    const onManualRunClose = () => {
+    const onSwalClose = () => {
       // Enable the button again
       this.disabled = false
       // Stop nchan listener
@@ -80,7 +77,7 @@ $(function () {
           showConfirmButton: true,
           confirmButtonText: "Done",
         },
-        onManualRunClose
+        onSwalClose
       )
     }
 
@@ -139,12 +136,11 @@ $(function () {
       swal.showInputError(message)
     }
 
-    const onDialogConfirm = (fileName) => {
-      // Quicky validate filename (backend does it better)
-      if (!fileName || /^[\w\-. ]+$/.test(filename) === false) {
-        return swal.showInputError(
-          "Invalid file name. Dont use especial characters"
-        )
+    // When SweetAlert is confirmed
+    const onSwalConfirm = (fileName) => {
+      // Quicky validate fileName (backend does it better)
+      if (!fileName || /^[\w\-. ]+$/.test(fileName) === false) {
+        return swal.showInputError("Invalid file name. Dont use especial characters")
       }
       // Send the request
       Services.create(fileName).then(onCreateLoad).catch(onCreateError)
@@ -161,21 +157,80 @@ $(function () {
         showCancelButton: true,
         closeOnConfirm: false,
       },
-      onDialogConfirm
+      onSwalConfirm
     )
   })
 
   // Edit yml
-  $(".yml-edit").on("click", function (event) {
+  $edit.on("click", function (event) {
     event.preventDefault()
 
-    // Read url
+    // Variables
+    let editor
+    // Read element url value
     const { search } = new URL(this.href)
     const params = new URLSearchParams(search)
     const fileName = params.get("name")
 
+    // Start ace editor
+    const startAce = (elementId) => {
+      editor = ace.edit(elementId, {
+        mode: "ace/mode/yaml",
+        theme: `ace/theme/${aceTheme}`,
+        keyboardHandler: "ace/keyboard/vscode",
+        printMargin: false,
+        tabSize: 2,
+      })
+      // Focus first line
+      editor.focus()
+    }
+
+    // Handle the save request
+    const onEditLoad = (data) => {
+      // Just close the sweet-alert
+      swal.close()
+    }
+
+    // Handle edit error
+    const onEditError = ({ responseJSON = {} }) => {
+      const { message = "Internal error" } = responseJSON
+      // Log the error
+      console.error("onEditError", message)
+      // Enable editor again
+      editor.setReadOnly(false)
+      // Show feedback
+      swal.showInputError(message)
+    }
+
+    // When SweetAlert save is click
+    const onSwalConfirm = () => {
+      // Disable edit mode
+      editor.setReadOnly(true)
+      // Get content
+      const contents = editor.getValue()
+      // Send save request
+      Services.edit({ fileName, contents }).then(onEditLoad).catch(onEditError)
+    }
+
+    // Open SweetAlert modal
     const onReadLoad = (content) => {
-      console.log(content)
+      swal(
+        {
+          title: fileName.endsWith(".yml") ? fileName : `${fileName}.yml`,
+          text: `<pre id='swaltext'>${content}</pre>`, // Use swaltext to have same css height
+          customClass: "nchan", // Use same class but not using nchan here
+          html: true,
+          animation: "none",
+          showLoaderOnConfirm: true,
+          confirmButtonText: "Save",
+          showCancelButton: true,
+          closeOnConfirm: false,
+        },
+        onSwalConfirm
+      )
+
+      // Start ace editor - asuming swal is ready
+      startAce("swaltext")
     }
 
     // Send request to run (manual)

@@ -121,7 +121,7 @@ $(function () {
     Services.save({ schedule, custom }).then(onSaveLoad).catch(onSaveError)
   })
 
-  // Create config file
+  // Dispatch when click on New Config
   $create.on("click", function () {
     const onCreateLoad = () => {
       // Just refresh the page
@@ -161,7 +161,7 @@ $(function () {
     )
   })
 
-  // Edit yml
+  // Dispatch when click on Edit
   $edit.on("click", function (event) {
     event.preventDefault()
 
@@ -241,7 +241,7 @@ $(function () {
     Services.read(fileName).then(onReadLoad)
   })
 
-  // Bind delete click
+  // Dispatch when click on Delete
   $("body").on("click", ".sweet-alert .yml-delete", function (event) {
     event.preventDefault()
 

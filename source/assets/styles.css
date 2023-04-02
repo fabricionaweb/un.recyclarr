@@ -28,6 +28,10 @@ pre#swaltext {
   padding-top: 7px;
 }
 
+pre#swaltext>p {
+  position: relative;
+}
+
 pre#swaltext.ace_editor {
   margin-bottom: 10px;
 }
@@ -50,4 +54,11 @@ pre#swaltext.ace_editor {
   position: absolute;
   left: 50px;
   bottom: 28px;
+}
+
+.sweet-alert .yml-delete {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(104px, 48px);
 }

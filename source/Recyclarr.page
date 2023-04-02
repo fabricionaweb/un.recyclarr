@@ -52,12 +52,12 @@ Run on schedule:
 <div style="padding-left:12px">
   <div class="flex">
     <!-- Secrets should always exist -->
-    <?=mk_config_file("secrets", "?name=secrets", "warning")?>
+    <?=mk_config_file("secrets", "secrets", "warning")?>
 
     <!-- Loop over configs folder -->
     <?php
-      foreach($settings->files as $file) {
-        echo mk_config_file(pathinfo($file, PATHINFO_FILENAME), "?name=$file");
+      foreach($settings->files as $fileName) {
+        echo mk_config_file(pathinfo($fileName, PATHINFO_FILENAME), $fileName);
       }
     ?>
   </div>

@@ -167,10 +167,8 @@ $(function () {
 
     // Variables
     let editor
-    // Read element url value
-    const { search } = new URL(this.href)
-    const params = new URLSearchParams(search)
-    const fileName = params.get("name")
+    // Read data-attr
+    const { fileName } = this.dataset
 
     // Start ace editor
     const startAce = (elementId) => {
@@ -186,7 +184,7 @@ $(function () {
     }
 
     // Handle the save request
-    const onEditLoad = (data) => {
+    const onEditLoad = () => {
       // Just close the sweet-alert
       swal.close()
     }
@@ -217,7 +215,13 @@ $(function () {
       swal(
         {
           title: fileName.endsWith(".yml") ? fileName : `${fileName}.yml`,
-          text: `<pre id='swaltext'>${content}</pre>`, // Use swaltext to have same css height
+          text: `<pre id='swaltext'>${content}</pre> \
+            ${
+              fileName.endsWith(".yml")
+                ? `<a href="?name=${fileName}" data-file-name="${fileName}" class="failed yml-delete">Delete</a>`
+                : ""
+            }
+          `,
           customClass: "nchan", // Use same class but not using nchan here
           html: true,
           animation: "none",
@@ -235,5 +239,25 @@ $(function () {
 
     // Send request to run (manual)
     Services.read(fileName).then(onReadLoad)
+  })
+
+  // Bind delete click
+  $("body").on("click", ".sweet-alert .yml-delete", function (event) {
+    event.preventDefault()
+
+    // Read data-attr
+    const { fileName } = this.dataset
+
+    // Open SweetAlert confirm
+    swal({
+      title: `Delete ${fileName}?`,
+      text: "This operation is irreversible",
+      type: "warning",
+      confirmButtonText: "Delete",
+      animation: "none",
+      showLoaderOnConfirm: true,
+      showCancelButton: true,
+      closeOnConfirm: false,
+    })
   })
 })

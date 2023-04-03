@@ -1,0 +1,15 @@
+{
+  "name": "un.recyclarr",
+  "description": "Recyclarr plugin for Unraid",
+  "author": "fabricionaweb",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabricionaweb/un.recyclarr"
+  },
+  "scripts": {
+    "build": "esbuild source/assets/src/entry.js --bundle --target=es2020 --outfile=source/assets/bundle.js"
+  },
+  "dependencies": {
+    "esbuild": "0.17.15"
+  }
+}

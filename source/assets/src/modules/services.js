@@ -1,4 +1,4 @@
-const BASE_URL = "/plugins/un.recyclarr/"
+const BASE_URL = "/plugins/un.recyclarr"
 
 // Run on manual (using dynamix)
 export const run = () => $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan" })

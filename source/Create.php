@@ -8,7 +8,7 @@ try {
   $fileName = $_POST["fileName"];
 
   // If not post and xhr request
-  if (!isset($fileName) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
+  if (empty($fileName) || !isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
     throw new Error("Not Implemented");
   }
 

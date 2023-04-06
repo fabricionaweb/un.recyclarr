@@ -45,6 +45,8 @@ class App {
     this.$create.on("click", this.onCreateClick)
     // When editing a config
     this.$edit.on("click", this.onEditClick)
+    // When click on delete (inside the Modal)
+    $("body").on("click", ".sweet-alert .yml-delete", this.onDeleteClick)
   }
 
   // Some in memory variables
@@ -127,9 +129,8 @@ class App {
       this.$response.removeClass("failed").addClass("passed").html(response?.message)
     } catch (response) {
       const message = response?.responseJSON?.message || "Internal error"
-
       // Log the error
-      console.error("onSaveError", message)
+      console.error("onScheduleSubmit", response)
       // Enable apply button again
       this.$apply.removeAttr("disabled")
 
@@ -139,7 +140,7 @@ class App {
   }
 
   onCreateClick = () => {
-    // Open SweetAlert modal
+    // Open SweetAlert modal dialog
     Modal.create(async (fileName) => {
       try {
         // Quicky validate fileName (backend does it better)
@@ -155,7 +156,7 @@ class App {
       } catch (response) {
         const message = response?.responseJSON?.message || "Internal error"
         // Log the error
-        console.error("onSaveError", message)
+        console.error("onCreateClick", response)
         // Enable apply button again
         this.$apply.removeAttr("disabled")
         // Show feedback
@@ -185,12 +186,34 @@ class App {
     } catch (response) {
       const message = response?.responseJSON?.message || "Internal error"
       // Log the error
-      console.error("onEditError", message)
+      console.error("onEditClick", response)
       // Enable editor again
       Ace.setReadOnly(false)
       // Show feedback
       Modal.showInputError(message)
     }
+  }
+
+  onDeleteClick = (event) => {
+    event.preventDefault()
+    // Get value from data-set
+    const { fileName } = event.currentTarget.dataset
+
+    // Open SweetAlert modal confirmation
+    Modal.del(fileName)(async () => {
+      try {
+        // If confirmed, request delete
+        await Services.del(fileName)
+        // Just refresh the page (maybe later we can improve it)
+        window.refresh()
+      } catch (response) {
+        const message = response?.responseJSON?.message || "Internal error"
+        // Log the error
+        console.error("onDeleteClick", response)
+        // Show feedback
+        Modal.showInputError(message)
+      }
+    })
   }
 }
 

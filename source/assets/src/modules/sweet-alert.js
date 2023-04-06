@@ -4,7 +4,21 @@ import * as Ace from "./ace-editor"
 export const preElement = "swaltext"
 
 // To prompt confirm delete
-export const del = () => {}
+// Cant be promise because of the implementation
+export const del = (fileName) => (callback) =>
+  swal(
+    {
+      title: `Delete ${fileName}?`,
+      text: "This operation is irreversible",
+      type: "warning",
+      confirmButtonText: "Delete",
+      animation: "none",
+      showLoaderOnConfirm: true,
+      showCancelButton: true,
+      closeOnConfirm: false,
+    },
+    callback
+  )
 
 // To dialog new config
 // Cant be promise because of the implementation

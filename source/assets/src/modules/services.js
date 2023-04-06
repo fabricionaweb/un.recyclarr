@@ -14,3 +14,6 @@ export const read = (fileName) => $.get(`${BASE_URL}/Open.php`, { fileName })
 
 // Edit config file
 export const edit = ({ fileName, contents }) => $.post(`${BASE_URL}/Edit.php`, { fileName, contents })
+
+// Delete config (php doest have body for delete request)
+export const del = (fileName) => $.post(`${BASE_URL}/Delete.php`, { fileName })

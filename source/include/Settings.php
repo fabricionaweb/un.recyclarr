@@ -58,8 +58,13 @@ class Settings {
     return @file_get_contents(Plugin::CONFIGS_DIR."/$fileName");
   }
 
-  // You must validate $fileName and $contents before call the method
+  // You must validate $fileName before call the method
   public static function saveConfigContents($fileName, $contents) {
     return file_put_contents(Plugin::CONFIGS_DIR."/$fileName", $contents);
+  }
+
+  // You must validate $fileName before call the method
+  public static function deleteConfigFile($fileName) {
+    return unlink(Plugin::CONFIGS_DIR."/$fileName");
   }
 }

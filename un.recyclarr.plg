@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.04.1-1">
+  <!ENTITY version   "2023.04.07">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "83df3aaca372abe8aefd1590eb85a29a">
+  <!ENTITY md5       "01dde295d2364641812c229a3b9a4694">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,9 +29,14 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Allow delete config files
+- Refactor frontend scripts
+- Preserve cache folder
+
+### 2023.04.01-1
 - Fix css aligment in configuration section
 
-### 2023.04.1
+### 2023.04.01
 - List config files
 - Allow create config files
 - Allow edit config files
@@ -108,7 +113,7 @@ The 'install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Creating configs and secrets.yml"
-install -dm644 &flash;/configs &appdata;/{cache,logs,repo}
+install -dm644 &flash;/{configs,cache} &appdata;/{logs,repo}
 if [[ ! -f &flash;/secrets.yml ]]; then
   install -m600 /dev/null &flash;/secrets.yml
 fi
@@ -116,6 +121,7 @@ fi
 echo "Creating symlinks to flash"
 ln -sf &flash;/secrets.yml &appdata;
 ln -sf &flash;/configs -T &appdata;/configs
+ln -sf &flash;/cache -T &appdata;/cache
 </INLINE>
 </FILE>
 
@@ -124,12 +130,9 @@ The 'post-install' script
 -->
 <FILE Run="/bin/bash">
 <INLINE>
-echo "-----------------------------------------------------"
-echo "--- Upload your .yml config files to: ---------------"
-echo "--- /boot/config/plugins/un.recyclarr/configs -------"
-echo "--- Add the secrets to: -----------------------------"
-echo "--- /boot/config/plugins/un.recyclarr/secrets.yml ---"
-echo "-----------------------------------------------------"
+echo "------------------------------------"
+echo "--- Recyclarr has been installed ---"
+echo "------------------------------------"
 </INLINE>
 </FILE>
 

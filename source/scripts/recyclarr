@@ -1,7 +1,13 @@
 #!/bin/bash -e
 
-# Use fisrt argument to nchan
+# First argument. Expects "version" or "nchan"
 ARG1=$1
+
+# Print the version and die
+if [[ "$ARG1" == "version" ]]; then
+  /usr/local/bin/recyclarr --version
+  exit $?
+fi
 
 # Publish messages to nchan sub
 publish() {

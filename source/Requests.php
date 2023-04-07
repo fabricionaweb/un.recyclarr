@@ -34,18 +34,21 @@ class Requests {
 
   public function route($action) {
     // Only accept XHR requests
-    if (!isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
-      throw new Error();
+    if (!empty($action) && isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
+      switch($action) {
+        case 'update-cron'   : return $this->updateCron();
+        case 'view-config'   : return $this->viewConfig();
+        case 'create-config' : return $this->createConfig();
+        case 'update-config' : return $this->updateConfig();
+        case 'delete-config' : return $this->deleteConfig();
+      }
     }
 
-    switch($action) {
-      case 'update-cron' :
-        return $this->updateCron();
-      default :
-        throw new Error();
-    }
+    // Default is error
+    throw new Error();
   }
 
+  // Update the recyclarr.cron file within schedule or custom
   private function updateCron() {
     // Mandatory field
     if (empty($this->schedule)) {
@@ -61,6 +64,26 @@ class Requests {
     // Save with custom expression or enum
     Settings::saveSchedule(trim($matches[1]) ?: $this->schedule);
     return ["message" => "Saved"];
+  }
+
+  // Return contents for a config yaml file
+  private function viewConfig() {
+
+  }
+
+  // Create a new config yaml file
+  private function createConfig() {
+
+  }
+
+  // Update contents for a config yaml file
+  private function updateConfig() {
+
+  }
+
+  // Delete a config yaml file
+  private function deleteConfig() {
+
   }
 }
 

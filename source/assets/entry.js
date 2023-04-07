@@ -53,14 +53,16 @@ class App {
 
   // Some in memory variables
   state() {
-    this.nchan = new NchanSubscriber("/sub/recyclarr", { subscriber: "websocket" })
+    this.nchan = new NchanSubscriber("/sub/recyclarr", {
+      subscriber: "websocket",
+    })
     this.currentSchedule = this.$schedule.val()
     this.currentCustom = this.$custom.val()
   }
 
   // Prints current version in header
   version = async () => {
-    const version = await Services.ver()
+    const version = await Services.getVersion()
     this.$title.append(`<span class="right"><small>v${version}<small></span>`)
   }
 
@@ -84,7 +86,8 @@ class App {
     this.$custom.toggleClass("hidden", schedule !== "CUSTOM")
 
     // Disable apply button if same value
-    const hasNoChanges = schedule === this.currentSchedule && custom === this.currentCustom
+    const hasNoChanges =
+      schedule === this.currentSchedule && custom === this.currentCustom
     this.$apply.attr("disabled", hasNoChanges)
   }
 
@@ -94,7 +97,8 @@ class App {
     const custom = this.$custom.val()
 
     // Disable apply button if same value
-    const hasNoChanges = schedule === this.currentSchedule && custom === this.currentCustom
+    const hasNoChanges =
+      schedule === this.currentSchedule && custom === this.currentCustom
     this.$apply.attr("disabled", hasNoChanges)
   }
 
@@ -107,7 +111,7 @@ class App {
     this.nchan.start()
 
     // Send request to run
-    await Services.run().then(Modal.logs)
+    await Services.runManual().then(Modal.logs)
 
     // Enable the button again
     this.$run.removeAttr("disabled")
@@ -127,14 +131,17 @@ class App {
 
     // Send request to save
     try {
-      const response = await Services.save({ schedule, custom })
+      const response = await Services.updateCron({ schedule, custom })
 
       // Change current state values
       this.currentSchedule = schedule
       this.currentCustom = custom
 
       // Show feedback
-      this.$response.removeClass("failed").addClass("passed").html(response?.message)
+      this.$response
+        .removeClass("failed")
+        .addClass("passed")
+        .html(response?.message)
     } catch (response) {
       const message = response?.responseJSON?.message || "Internal error"
       // Log the error
@@ -153,11 +160,15 @@ class App {
       try {
         // Quicky validate fileName (backend does it better)
         if (!fileName || /^[\w\-. ]+$/.test(fileName) === false) {
-          throw { responseJSON: { message: "Invalid file name. Dont use especial characters" } }
+          throw {
+            responseJSON: {
+              message: "Invalid file name. Dont use especial characters",
+            },
+          }
         }
 
         // Send the request
-        await Services.create(fileName)
+        await Services.createConfig(fileName)
 
         // Just refresh the page (maybe later we can improve it)
         window.refresh()
@@ -180,14 +191,14 @@ class App {
 
     try {
       // Get file contents and open modal
-      await Services.read(fileName).then(Modal.edit(fileName))
+      await Services.viewConfig(fileName).then(Modal.edit(fileName))
 
       // Disable edit mode
       Ace.setReadOnly(true)
       // Get content
       const contents = Ace.getValue()
       // Send save request
-      await Services.edit({ fileName, contents })
+      await Services.updateConfig({ fileName, contents })
 
       // Just close the sweet-alert
       Modal.close()
@@ -211,7 +222,7 @@ class App {
     Modal.del(fileName)(async () => {
       try {
         // If confirmed, request delete
-        await Services.del(fileName)
+        await Services.deleteConfig(fileName)
         // Just refresh the page (maybe later we can improve it)
         window.refresh()
       } catch (response) {

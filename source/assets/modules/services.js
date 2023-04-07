@@ -1,13 +1,14 @@
 const BASE_URL = "/plugins/un.recyclarr"
+const ENDPOINT = `${BASE_URL}/Requests.php`
 
-// Gets current version from cli
+// Get current version from cli
 export const ver = () => $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr version", start: 2 })
 
 // Run on manual (using dynamix)
 export const run = () => $.post("/webGui/include/StartCommand.php", { cmd: "recyclarr nchan", start: 1 })
 
-// Save crontab
-export const save = ({ schedule, custom }) => $.post(`${BASE_URL}/Update.php`, { schedule, custom })
+// Save schedule crontab
+export const save = ({ schedule, custom }) => $.post(ENDPOINT, { action: "update-cron", schedule, custom })
 
 // Create config file
 export const create = (fileName) => $.post(`${BASE_URL}/Create.php`, { fileName })

@@ -8,5 +8,5 @@
   "files.associations": {
     "*.page": "php"
   },
-  "editor.rulers": [{ "column": 120 }]
+  "editor.rulers": [{ "column": 80 }]
 }

@@ -7,9 +7,11 @@ class App {
     this.selectors()
     this.state()
     this.listeners()
+    this.version()
   }
 
   selectors() {
+    this.$title = $("#title")
     this.$form = $("form[name=crontab]")
 
     // Schedule available options
@@ -54,6 +56,12 @@ class App {
     this.nchan = new NchanSubscriber("/sub/recyclarr", { subscriber: "websocket" })
     this.currentSchedule = this.$schedule.val()
     this.currentCustom = this.$custom.val()
+  }
+
+  // Prints current version in header
+  version = async () => {
+    const version = await Services.ver()
+    this.$title.append(`<span class="right"><small>v${version}<small></span>`)
   }
 
   nchanLog = (data) => {

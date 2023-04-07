@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.04.07">
+  <!ENTITY version   "2023.04.07-1">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "01dde295d2364641812c229a3b9a4694">
+  <!ENTITY md5       "78f3036c140b00747ee4c95e81d5026e">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,6 +29,9 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Display binary version on settings page
+
+### 2023.04.07
 - Allow delete config files
 - Refactor frontend scripts
 - Preserve cache folder

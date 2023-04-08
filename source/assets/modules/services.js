@@ -5,14 +5,14 @@ const ENDPOINT = `${BASE_URL}/Requests.php`
 export const getVersion = () =>
   $.post("/webGui/include/StartCommand.php", {
     cmd: "recyclarr version",
-    start: 2,
+    start: 2, // Run and return output
   })
 
 // Run on manual (using dynamix)
 export const runManual = () =>
   $.post("/webGui/include/StartCommand.php", {
     cmd: "recyclarr nchan",
-    start: 1,
+    start: 1, // Run new instance and return pid
   })
 
 // Save schedule crontab

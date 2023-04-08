@@ -68,7 +68,16 @@ class Requests {
 
   // Return contents for a config yaml file
   private function viewConfig() {
+    // Check if exists in configs
+    if (!in_array($this->fileName, $settings->files)) {
+      // Not Found
+      throw new Error("File does not exists", 404);
+    }
 
+    // Return the file and stop execution
+    header("Content-Type: application/x-yaml", true);
+    echo Settings::getConfigContents($fileName);
+    exit();
   }
 
   // Create a new config yaml file

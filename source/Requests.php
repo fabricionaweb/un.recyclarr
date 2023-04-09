@@ -2,6 +2,8 @@
 require "include/Setup.php";
 
 class Requests {
+  const SECRETS = "../secrets.yml";
+
   private $schedule;
   private $custom;
   private $fileName;
@@ -25,11 +27,23 @@ class Requests {
   private function handleFileName($fileName) {
     // If secrets
     if ($fileName === "secrets") {
-      return "../secrets.yml";
+      return self::SECRETS;
     }
 
     // Extract the proper filename
     return pathinfo($fileName, PATHINFO_FILENAME).".yml";
+  }
+
+  private function checkFileExists($return = false) {
+    // If not secrets, check if file exists in configs folder
+    if ($this->fileName !== self::SECRETS && !in_array($this->fileName, Settings::getConfigFiles())) {
+      if ($return) {
+        return true;
+      }
+
+      // Not Found
+      throw new Error("File does not exists", 404);
+    }
   }
 
   public function route($action) {
@@ -37,8 +51,8 @@ class Requests {
     if (!empty($action) && isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
       switch($action) {
         case 'update-cron'   : return $this->updateCron();
-        case 'view-config'   : return $this->viewConfig();
         case 'create-config' : return $this->createConfig();
+        case 'view-config'   : return $this->viewConfig();
         case 'update-config' : return $this->updateConfig();
         case 'delete-config' : return $this->deleteConfig();
       }
@@ -66,33 +80,46 @@ class Requests {
     return ["message" => "Saved"];
   }
 
+  // Create a new config yaml file
+  private function createConfig() {
+    // Check if file exists in configs folder
+    if (!$this->checkFileExists(true)) {
+      // Conflict
+      throw new Error("This file name already exists", 409);
+    }
+
+    // Create the file
+    Settings::createConfigFile($this->fileName);
+    return ["message" => "Created", "fileName" => $this->fileName];
+  }
+
+
   // Return contents for a config yaml file
   private function viewConfig() {
-    // Check if exists in configs
-    if (!in_array($this->fileName, $settings->files)) {
-      // Not Found
-      throw new Error("File does not exists", 404);
-    }
+    $this->checkFileExists();
 
     // Return the file and stop execution
     header("Content-Type: application/x-yaml", true);
-    echo Settings::getConfigContents($fileName);
+    echo Settings::getConfigContents($this->fileName);
     exit();
-  }
-
-  // Create a new config yaml file
-  private function createConfig() {
-
   }
 
   // Update contents for a config yaml file
   private function updateConfig() {
+    $this->checkFileExists();
 
+    // Save config file
+    Settings::saveConfigContents($this->fileName, $this->contents);
+    return ["message" => "Saved", "fileName" => $this->fileName];
   }
 
   // Delete a config yaml file
   private function deleteConfig() {
+    $this->checkFileExists();
 
+    // Delete config file
+    Settings::deleteConfigFile($this->fileName);
+    return ["message" => "Deleted", "fileName" => $this->fileName];
   }
 }
 

@@ -2,6 +2,7 @@
 
 # First argument. Expects "version" or "nchan"
 ARG1=$1
+shift
 
 # Print the version and die
 if [[ "$ARG1" == "version" ]]; then
@@ -27,7 +28,7 @@ FIFO=$(mktemp -u)
 mkfifo $FIFO
 
 # Run the program async and write output lines in that file
-/usr/local/bin/recyclarr sync 2>&1 >$FIFO &
+/usr/local/bin/recyclarr sync $1 2>&1 >$FIFO &
 
 # Listen output and publish messages
 while read LINE; do publish "$LINE"; done <$FIFO

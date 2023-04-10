@@ -9,9 +9,16 @@ This is a plugin non official, to run the binary on Unraid with a friendly inter
 
 Unraid already have git and crontab. Recyclarr binaries is [self-contained](https://learn.microsoft.com/en-us/dotnet/core/deploying/#publish-self-contained). We dont need anything else.
 
-![settings](https://user-images.githubusercontent.com/15933/229292805-f0f38d68-2720-45ed-9208-cfe4d286e6fc.png)
+<details>
+<summary>Screenshots</summary>
+
+![settings](https://user-images.githubusercontent.com/15933/230949542-e642a05f-081a-48cb-8201-656536d8e3e0.png)
 ![running](https://user-images.githubusercontent.com/15933/227890166-864b7648-7e5e-4851-909c-8677ae02200b.png)
-![editing](https://user-images.githubusercontent.com/15933/229291919-f1518075-7ca7-4ffe-8286-9dc282584f8e.png)
+![editing](https://user-images.githubusercontent.com/15933/230949703-d399f501-862a-4c4e-904d-f8b8e7e18109.png)
+![create](https://user-images.githubusercontent.com/15933/230949836-55378497-fc83-45ed-93fb-4e178ac36235.png)
+![delete](https://user-images.githubusercontent.com/15933/230949790-5db668d6-9680-4ca9-9572-b900379c66ee.png)
+
+</details>
 
 ### Install
 

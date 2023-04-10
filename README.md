@@ -13,7 +13,6 @@ Unraid already have git and crontab. Recyclarr binaries is [self-contained](http
 ![running](https://user-images.githubusercontent.com/15933/227890166-864b7648-7e5e-4851-909c-8677ae02200b.png)
 ![editing](https://user-images.githubusercontent.com/15933/229291919-f1518075-7ca7-4ffe-8286-9dc282584f8e.png)
 
-
 ### Install
 
 Use the plg url to install:
@@ -33,6 +32,10 @@ You can create, delete and edit using the interface. The yml files is stored at 
 - `radarr.yml`
 
 It will make use of the [directory config](https://recyclarr.dev/wiki/file-structure#config-directory) and `recyclarr sync` will go through all the files.
+Or you can run just one by passing the [service](https://recyclarr.dev/wiki/cli/sync) to `recyclarr sync [service]`. Example:
+
+- `recyclarr sync radarr`
+- `recyclarr sync sonarr`
 
 Or you can run just one by passing the **yml file name** to `recyclarr sync [service]`. Using the files above as example: 
 

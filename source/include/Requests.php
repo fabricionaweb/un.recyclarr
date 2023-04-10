@@ -63,11 +63,6 @@ class Requests {
 
   // Update the recyclarr.cron file within schedule or custom
   private function updateCron() {
-    // Mandatory field
-    if (empty($this->schedule)) {
-      throw new Error();
-    }
-
     // Validate custom cron
     if (!empty($this->custom) && !preg_match(Plugin::CRON_REGEX, $this->custom, $matches)) {
       // Not Acceptable

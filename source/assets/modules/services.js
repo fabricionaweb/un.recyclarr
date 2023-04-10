@@ -1,5 +1,5 @@
 const BASE_URL = "/plugins/un.recyclarr"
-const ENDPOINT = `${BASE_URL}/Requests.php`
+const ENDPOINT = `${BASE_URL}/Actions.php`
 
 // Get current version from cli
 export const getVersion = () =>

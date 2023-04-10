@@ -3,7 +3,10 @@ Icon="fa-trash-o"
 Title="Recyclarr"
 ---
 <?php
-require $pageroot."/include/Setup.php";
+require $pageroot."/include/Includes.php";
+
+// Instance settings
+$settings = new Settings();
 ?>
 
 

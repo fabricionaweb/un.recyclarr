@@ -4,8 +4,10 @@
 APPDATA=/root/.config/recyclarr
 # First argument. Expects "version" or "nchan"
 ARG1="$1"
-# Second argument. Expect recyclarr config file
+# Second argument. Expect "config file" or "-p"
 ARG2="$2"
+# Third argument. Expect "-p" if $2 exists
+ARG3="$3"
 
 # Print the version and die
 if [[ "$ARG1" == "version" ]]; then
@@ -13,9 +15,14 @@ if [[ "$ARG1" == "version" ]]; then
   exit $?
 fi
 
+# Make recyclarr dry run argument
+if [[ "$ARG2" == "-p" || "$ARG3" == "-p" ]]; then
+  preview="-p"
+fi
+
 # Make recyclarr sync argument
-if [[ -n "$ARG2" ]]; then
-  # Filter extensions and path
+if [[ -n "$ARG2" && "$ARG2" != "-p" ]]; then
+  # Filter argument extensions and path
   configFile=$(basename ${ARG2%.*})
   options="-c $APPDATA/configs/$configFile.yml"
 fi
@@ -38,7 +45,8 @@ FIFO=$(mktemp -u)
 mkfifo $FIFO
 
 # Run the program async and write output lines in that file
-/usr/local/bin/recyclarr sync $options 2>&1 >$FIFO &
+# publish "\$ recyclarr sync $options $preview"
+/usr/local/bin/recyclarr sync $options $preview 2>&1 >$FIFO &
 
 # Listen output and publish messages
 while read LINE; do publish "$LINE"; done <$FIFO

@@ -48,7 +48,7 @@ Run on schedule:
 
 <!-- Running settings -->
 <div markdown="1">
-Run manually now:
+Run manually:
 : <select name="config">
     <option value="" selected>All configurations</option>
     <?php
@@ -58,6 +58,9 @@ Run manually now:
       }
     ?>
   </select>
+  <label>
+    <input type="checkbox" name="preview" /> Preview
+  </label>
 
 &nbsp;
 : <button type="button" name="run">Run now</button>

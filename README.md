@@ -26,15 +26,19 @@ https://raw.githubusercontent.com/fabricionaweb/un.recyclarr/main/un.recyclarr.p
 
 The yml files are located in the plugin folders, so it does persists after reboot. This is the normal practice for plugins.
 
-You need to add your yml files to `/boot/config/plugins/un.recyclarr/configs` folder. _Future versions will have a interface to upload/edit this files_
-
-You can have multiple files like:
+You can create, delete and edit using the interface. The yml files is stored at `/boot/config/plugins/un.recyclarr/configs` folder. You can have multiple files like:
 
 - `sonarr-tv.yml`
 - `sonarr-anime.yml`
 - `radarr.yml`
 
 It will make use of the [directory config](https://recyclarr.dev/wiki/file-structure#config-directory) and `recyclarr sync` will go through all the files.
+
+Or you can run just one by passing the **yml file name** to `recyclarr sync [service]`. Using the files above as example: 
+
+- `recyclarr sync sonarr-tv`
+- `recyclarr sync sonarr-anime`
+- `recyclarr sync sonarr-radarr`
 
 ### Secrets (optional)
 

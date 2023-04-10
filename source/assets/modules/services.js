@@ -9,9 +9,9 @@ export const getVersion = () =>
   })
 
 // Run on manual (using dynamix)
-export const runManual = () =>
+export const runManual = (service) =>
   $.post("/webGui/include/StartCommand.php", {
-    cmd: "recyclarr nchan",
+    cmd: `recyclarr nchan ${service}`,
     start: 1, // Run new instance and return pid
   })
 

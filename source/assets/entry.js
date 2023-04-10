@@ -47,8 +47,10 @@ class App {
     this.$create.on("click", this.onCreateClick)
     // When editing a config
     this.$edit.on("click", this.onEditClick)
-    // When click on delete (inside the Modal)
+    // When click on delete (inside the edit Modal)
     $("body").on("click", ".sweet-alert .yml-delete", this.onDeleteClick)
+    // When click on run (inside the edit Modal)
+    $("body").on("click", ".sweet-alert .yml-run", this.onServiceRunClick)
   }
 
   // Some in memory variables
@@ -109,10 +111,8 @@ class App {
     this.$run.attr("disabled", true)
     // Start nchan listener
     this.nchan.start()
-
     // Send request to run
     await Services.runManual().then(Modal.logs)
-
     // Enable the button again
     this.$run.removeAttr("disabled")
     // Stop nchan listener
@@ -233,6 +233,21 @@ class App {
         Modal.showInputError(message)
       }
     })
+  }
+
+  onServiceRunClick = async (event) => {
+    event.preventDefault()
+    // Get value from data-set
+    const { fileName } = event.currentTarget.dataset
+
+    // Start nchan listener
+    this.nchan.start()
+    // Send request to run
+    await Services.runManual(fileName).then(Modal.logs)
+    // Enable the button again
+    this.$run.removeAttr("disabled")
+    // Stop nchan listener
+    this.nchan.stop()
   }
 }
 

@@ -1,13 +1,23 @@
 #!/bin/bash -e
 
+# Appdata folder
+APPDATA=/root/.config/recyclarr
 # First argument. Expects "version" or "nchan"
-ARG1=$1
-shift
+ARG1="$1"
+# Second argument. Expect recyclarr config file
+ARG2="$2"
 
 # Print the version and die
 if [[ "$ARG1" == "version" ]]; then
   /usr/local/bin/recyclarr --version
   exit $?
+fi
+
+# Make recyclarr sync argument
+if [[ -n "$ARG2" ]]; then
+  # Filter extensions and path
+  configFile=$(basename ${ARG2%.*})
+  options="-c $APPDATA/configs/$configFile.yml"
 fi
 
 # Publish messages to nchan sub
@@ -28,7 +38,7 @@ FIFO=$(mktemp -u)
 mkfifo $FIFO
 
 # Run the program async and write output lines in that file
-/usr/local/bin/recyclarr sync $1 2>&1 >$FIFO &
+/usr/local/bin/recyclarr sync $options 2>&1 >$FIFO &
 
 # Listen output and publish messages
 while read LINE; do publish "$LINE"; done <$FIFO

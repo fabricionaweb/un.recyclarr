@@ -37,7 +37,7 @@ export const create = (callback) =>
   )
 
 // To display nchan logs
-export const logs = () =>
+export const logs = async () =>
   new Promise((resolve) =>
     swal(
       {
@@ -63,11 +63,10 @@ export const edit = (fileName) => async (contents) => {
         title: isSecrets ? `${fileName}.yml` : fileName,
         text: `<pre id='${preElement}'>${contents}</pre> \
             ${
+              // Delete button
               isSecrets
                 ? ""
-                : // Delete and Run buttons
-                  `<a href="?name=${fileName}" data-file-name="${fileName}" class="yml-run">Run now</a> \
-                   <a href="?name=${fileName}" data-file-name="${fileName}" class="failed yml-delete">Delete</a>`
+                : `<a href="?name=${fileName}" data-file-name="${fileName}" class="failed yml-delete">Delete</a>`
             }
           `,
         customClass: "nchan", // Use same class but not using nchan here

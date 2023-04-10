@@ -56,16 +56,9 @@ pre#swaltext.ace_editor {
   bottom: 28px;
 }
 
-.sweet-alert .yml-delete,
-.sweet-alert .yml-run {
+.sweet-alert .yml-delete {
   position: absolute;
   left: 50%;
   bottom: 0;
-}
-
-.sweet-alert .yml-delete {
   transform: translate(104px, 48px);
-}
-.sweet-alert .yml-run {
-  transform: translate(-174px, 48px);
 }

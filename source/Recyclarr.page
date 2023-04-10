@@ -49,7 +49,7 @@ Run on schedule:
 <!-- Running settings -->
 <div markdown="1">
 Run manually now:
-: <select name="service">
+: <select name="config">
     <option value="" selected>All configurations</option>
     <?php
       foreach($settings->files as $fileName) {

@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.04.10">
+  <!ENTITY version   "2023.04.10-1">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "24433367a4fd5d5b77f669f77a2028b2">
+  <!ENTITY md5       "cceb7bd38631f411f0862b069c0f4608">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,6 +29,9 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Add the hability to dry-run and to select the config file to manual run
+
+### 2023.04.10
 - Upgrade binary version to v4.4.1
 - Refactor PHP code
 

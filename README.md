@@ -44,12 +44,6 @@ Or you can run just one by passing the [service](https://recyclarr.dev/wiki/cli/
 - `recyclarr sync radarr`
 - `recyclarr sync sonarr`
 
-Or you can run just one by passing the **yml file name** to `recyclarr sync [service]`. Using the files above as example: 
-
-- `recyclarr sync sonarr-tv`
-- `recyclarr sync sonarr-anime`
-- `recyclarr sync sonarr-radarr`
-
 ### Secrets (optional)
 
 The `secrets.yml` is located at `/boot/config/plugins/un.recyclarr/secrets.yml` - one level above the configs folder. [Use it to help you](https://recyclarr.dev/wiki/yaml/secrets-reference)

@@ -11,19 +11,24 @@ class App {
   }
 
   selectors() {
+    // Plugin title (to append version)
     this.$title = $("#title")
-    this.$form = $("form[name=crontab]")
 
     // Schedule available options
-    this.$schedule = this.$form.find("select[name=schedule]")
+    this.$schedule = $("select[name=schedule]")
     // Custom cron input text
-    this.$custom = this.$form.find("input[name=custom]")
+    this.$custom = $("input[name=custom]")
     // Button to apply changes
-    this.$apply = this.$form.find("button[name=apply]")
-    // Button to manual run
-    this.$run = this.$form.find("button[name=run]")
+    this.$apply = $("button[name=apply]")
     // Displays feedback messages for schedule changes
-    this.$response = this.$form.find("#response")
+    this.$response = $("#response")
+
+    // Config to manual run
+    this.$config = $("select[name=config]")
+    // Dry run option to manual run
+    this.$preview = $("input[name=preview]")
+    // Button to manual run
+    this.$run = $("button[name=run]")
 
     // Button to create new config
     this.$create = $("button[name=create]")
@@ -42,12 +47,12 @@ class App {
     // When calling manual run
     this.$run.on("click", this.onRunClick)
     // When apply schedule changes
-    this.$form.on("submit", this.onScheduleSubmit)
+    this.$apply.on("click", this.onScheduleApply)
     // When clicking on New Config
     this.$create.on("click", this.onCreateClick)
     // When editing a config
     this.$edit.on("click", this.onEditClick)
-    // When click on delete (inside the Modal)
+    // When click on delete (inside the edit Modal)
     $("body").on("click", ".sweet-alert .yml-delete", this.onDeleteClick)
   }
 
@@ -105,21 +110,23 @@ class App {
   onRunClick = async (event) => {
     event.preventDefault()
 
+    // Get form values
+    const config = this.$config.val()
+    const preview = this.$preview.is(":checked")
+
     // Disable the button to prevent miss clicks
     this.$run.attr("disabled", true)
     // Start nchan listener
     this.nchan.start()
-
     // Send request to run
-    await Services.runManual().then(Modal.logs)
-
+    await Services.runManual({ config, preview }).then(Modal.logs)
     // Enable the button again
     this.$run.removeAttr("disabled")
     // Stop nchan listener
     this.nchan.stop()
   }
 
-  onScheduleSubmit = async (event) => {
+  onScheduleApply = async (event) => {
     event.preventDefault()
 
     // Get form values
@@ -145,7 +152,7 @@ class App {
     } catch (response) {
       const message = response?.responseJSON?.message || "Internal error"
       // Log the error
-      console.error("onScheduleSubmit", response)
+      console.error("onScheduleApply", response)
       // Enable apply button again
       this.$apply.removeAttr("disabled")
 

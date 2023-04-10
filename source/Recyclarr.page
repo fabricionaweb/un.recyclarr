@@ -16,8 +16,7 @@ $settings = new Settings();
 
 
 <!-- Crontab settings -->
-<div style="margin-top:-30px" id="title">Crontab</div>
-<form markdown="1" method="POST" name="crontab">
+<div markdown="1">
 Run on schedule:
 : <select name="schedule">
     <?=mk_option($settings->schedule, "DISABLED", "Disabled")?>
@@ -42,11 +41,30 @@ Run on schedule:
 > **Montly** Run monthly  at 4:20 on the first day of the month<br>
 > **Custom** Allows you to enter the expression.
 
-<button type="button" name="run">Run now</button>
-: <button type="submit" name="apply" disabled>Apply</button>
+&nbsp;
+: <button type="button" name="apply" disabled>Apply</button>
 <span id="response"></span>
-</form>
+</div>
 
+<!-- Running settings -->
+<div markdown="1">
+Run manually:
+: <select name="config">
+    <option value="" selected>All configurations</option>
+    <?php
+      foreach($settings->files as $fileName) {
+        $service = pathinfo($fileName, PATHINFO_FILENAME);
+        echo "<option value='$service'>$service</option>";
+      }
+    ?>
+  </select>
+  <label>
+    <input type="checkbox" name="preview" /> Preview
+  </label>
+
+&nbsp;
+: <button type="button" name="run">Run now</button>
+</div>
 
 <!-- Configuration files -->
 <div id="title">Configuration</div>

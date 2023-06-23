@@ -1,6 +1,6 @@
 #!/bin/bash -ex
 
-version="4.4.1"
+version="5.0.0"
 
 rootfs=package/rootfs
 emhttp=$rootfs/usr/local/emhttp/plugins/un.recyclarr

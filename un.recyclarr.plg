@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.06.23">
+  <!ENTITY version   "2023.06.24">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "764abf72b495344440b66dc620a4294b">
+  <!ENTITY md5       "61059bed290ce02b6a913379dbaa2693">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,7 +29,11 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Upgrade to 5.0.1
+
+### 2023.04.23
 - Upgrade to 5.0.0
+- Remove repo folder during install/upgrade
 
 ### 2023.04.10-1
 - Add the hability to dry-run and to select the config file to manual run

@@ -1,10 +1,11 @@
 #!/bin/bash -ex
 
-version="5.0.2"
+# first arg
+version="$1"
 
-rootfs=package/rootfs
-emhttp=$rootfs/usr/local/emhttp/plugins/un.recyclarr
-bin=$rootfs/usr/local/bin
+rootfs="package/rootfs"
+emhttp="$rootfs/usr/local/emhttp/plugins/un.recyclarr"
+bin="$rootfs/usr/local/bin"
 
 prepare() {
   # delete previous stuff
@@ -14,8 +15,15 @@ prepare() {
 }
 
 download() {
+  # get latest if dont specify version
+  if [[ -z "$version" ]]; then
+    release="latest/download"
+  else
+    release="download/v$version"
+  fi
+
   # download and extract
-  wget -qO- --show-progress https://github.com/recyclarr/recyclarr/releases/download/v$version/recyclarr-linux-x64.tar.xz | tar xvJ -C $bin
+  wget -qO- --show-progress "https://github.com/recyclarr/recyclarr/releases/$release/recyclarr-linux-x64.tar.xz" | tar xvJ -C $bin
 }
 
 frontend_build() {

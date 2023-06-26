@@ -33,6 +33,7 @@ class Settings {
   public static function saveSchedule($expression) {
     $fileContents = "";
 
+    // Disable is null
     if ($expression) {
       $fileContents .= self::HEADING;
       $fileContents .= $expression." ".Plugin::CRON_COMMAND.PHP_EOL;

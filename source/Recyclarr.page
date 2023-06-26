@@ -70,7 +70,7 @@ Run manually:
 </div>
 
 <!-- Configuration files -->
-<div id="title">Configuration</div>
+<div class="title">Configuration</div>
 <div style="padding-left:12px">
   <div class="flex">
     <!-- Secrets should always exist -->

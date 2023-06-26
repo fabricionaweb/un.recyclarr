@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.06.26-1">
+  <!ENTITY version   "2023.06.26-4">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "c96d7e5db0218bc4b3e4fce9da27a9c4">
+  <!ENTITY md5       "2c57bfef5f10b64f92671b40a4424bf8">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -21,7 +21,7 @@
   launch="&launch;"
   support="&gitURL;/issues"
   icon="fa-trash-o"
-  min="6.11.5"
+  min="6.12.0"
 >
 
 <!--
@@ -29,6 +29,10 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Fix to PHP8 and Unraid 6.12
+- Upgrade binary to 5.1.0
+
+### 2023.06.26-1
 - Add debug mode to manual run
 
 ### 2023.06.26
@@ -141,7 +145,7 @@ The 'pre-install' script
 <INLINE>
 echo "Removing old versions"
 find &flash; -type f -name "&name;-*.txz" ! -name "&name;-&version;.txz" -delete
-rm -rf &flash;/repo*
+rm -rf &appdata;/repo*
 </INLINE>
 </FILE>
 
@@ -151,7 +155,7 @@ The 'install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Creating folders and files"
-install -dm644 &flash;/{configs,cache} &appdata;/{logs,repo}
+install -dm644 &flash;/{configs,cache} &appdata;/{logs,repositories}
 if [[ ! -f &flash;/secrets.yml ]]; then
   install -m600 /dev/null &flash;/secrets.yml
 fi
@@ -180,7 +184,7 @@ The 'remove' script
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
 removepkg &name;-&version;
-rm -rf &flash; &emhttp; &appdata;
+rm -rf &emhttp; &appdata; &flash;/*.{cron,txz}
 /usr/local/sbin/update_cron
 echo "--------------------------------------"
 echo "--- Recyclarr has been uninstalled ---"

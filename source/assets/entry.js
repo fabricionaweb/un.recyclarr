@@ -12,7 +12,7 @@ class App {
 
   selectors() {
     // Plugin title (to append version)
-    this.$title = $("#title")
+    this.$title = $(".title").first()
 
     // Schedule available options
     this.$schedule = $("select[name=schedule]")

@@ -15,8 +15,12 @@ class Requests {
   }
 
   private function handleScheduleEnum($schedule) {
-    // Try to interpolate, if not possible become null - which means disable
-    return @constant("Schedule::".$schedule);
+    // Try to interpolate, if not possible become disable
+    try {
+      return constant("Schedule::$schedule");
+    } catch(Throwable $e) {
+      return Schedule::DISABLED;
+    }
   }
 
   private function handleCustomCron($custom) {

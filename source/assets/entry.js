@@ -27,6 +27,8 @@ class App {
     this.$config = $("select[name=config]")
     // Dry run option to manual run
     this.$preview = $("input[name=preview]")
+    // Debug option to manual run
+    this.$debug = $("input[name=debug]")
     // Button to manual run
     this.$run = $("button[name=run]")
 
@@ -113,13 +115,14 @@ class App {
     // Get form values
     const config = this.$config.val()
     const preview = this.$preview.is(":checked")
+    const debug = this.$debug.is(":checked")
 
     // Disable the button to prevent miss clicks
     this.$run.attr("disabled", true)
     // Start nchan listener
     this.nchan.start()
     // Send request to run
-    await Services.runManual({ config, preview }).then(Modal.logs)
+    await Services.runManual({ config, preview, debug }).then(Modal.logs)
     // Enable the button again
     this.$run.removeAttr("disabled")
     // Stop nchan listener

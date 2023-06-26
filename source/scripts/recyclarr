@@ -4,10 +4,12 @@
 APPDATA=/root/.config/recyclarr
 # First argument. Expects "version" or "nchan"
 ARG1="$1"
-# Second argument. Expect "config file" or "-p"
+# Second argument. Expect "config file" or "-p" or "-d"
 ARG2="$2"
-# Third argument. Expect "-p" if $2 exists
+# Third argument. Expect "-p" or "-d" if $2 exists
 ARG3="$3"
+# Fourth argument. Expect "-d" if $3 exists
+ARG4="$4"
 
 # Print the version and die
 if [[ "$ARG1" == "version" ]]; then
@@ -20,8 +22,13 @@ if [[ "$ARG2" == "-p" || "$ARG3" == "-p" ]]; then
   preview="-p"
 fi
 
+# Make recyclarr debug argument
+if [[ "$ARG2" == "-d" || "$ARG3" == "-d" || "$ARG4" == "-d" ]]; then
+  debug="-d"
+fi
+
 # Make recyclarr sync argument
-if [[ -n "$ARG2" && "$ARG2" != "-p" ]]; then
+if [[ -n "$ARG2" && "$ARG2" != "-p" && "$ARG2" != "-d" ]]; then
   # Filter argument extensions and path
   configFile=$(basename ${ARG2%.*})
   options="-c $APPDATA/configs/$configFile.yml"
@@ -46,7 +53,7 @@ mkfifo $FIFO
 
 # Run the program async and write output lines in that file
 # publish "\$ recyclarr sync $options $preview"
-/usr/local/bin/recyclarr sync $options $preview 2>&1 >$FIFO &
+/usr/local/bin/recyclarr sync $options $preview $debug 2>&1 >$FIFO &
 
 # Listen output and publish messages
 while read LINE; do publish "$LINE"; done <$FIFO

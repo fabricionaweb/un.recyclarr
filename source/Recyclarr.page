@@ -61,6 +61,9 @@ Run manually:
   <label>
     <input type="checkbox" name="preview" /> Preview
   </label>
+  <label>
+    <input type="checkbox" name="debug" /> Debug
+  </label>
 
 &nbsp;
 : <button type="button" name="run">Run now</button>

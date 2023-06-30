@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2023.06.26-4">
+  <!ENTITY version   "2023.06.30">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "2c57bfef5f10b64f92671b40a4424bf8">
+  <!ENTITY md5       "0e5919d290c524559e4d1fd9697a9f5f">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,6 +29,9 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Upgrade binary to 5.1.1
+
+### 2023.06.26-4
 - Fix to PHP8 and Unraid 6.12
 - Upgrade binary to 5.1.0
 

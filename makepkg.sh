@@ -28,9 +28,9 @@ download() {
 
 frontend_build() {
   # assuming you have node, install deps
-  npm ci
+  pnpm install --frozen-lockfile
   # build
-  npm run build -- --minify
+  pnpm build --minify-syntax --minify-whitespace
 }
 
 copy() {

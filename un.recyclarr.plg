@@ -140,14 +140,14 @@ Release notes
 - First release
 </CHANGES>
 
-<!-- 
+<!--
 Plugin description
 -->
 <FILE Name="&emhttp;/README.md">
 <INLINE>
 **Recyclarr**
 
-Automatically sync TRaSH guides to your Sonarr and Radarr instances. Allows you to create and edit config files via web interface.  
+Automatically sync TRaSH guides to your Sonarr and Radarr instances. Allows you to create and edit config files via web interface.
 </INLINE>
 </FILE>
 

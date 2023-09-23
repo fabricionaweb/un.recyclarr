@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-# Appdata folder
+# Set $TERM variable to parse console logs
+TERM=xterm
+# Default appdata folder
 APPDATA=/root/.config/recyclarr
 # First argument. Expects "version" or "nchan"
 ARG1="$1"
@@ -37,7 +39,7 @@ fi
 # Publish messages to nchan sub
 publish() {
   # Filter preview and debug from syslog - too much info
-  if [[ -z "$preview" && -z "$debug" && "$1" != "[DONE]" ]]; then
+  if [[ -z "$preview" && -z "$debug" ]]; then
     logger -t recyclarr "$1"
   fi
 
@@ -54,7 +56,6 @@ FIFO=$(mktemp -u)
 mkfifo $FIFO
 
 # Run the program async and write output lines in that file
-# publish "\$ recyclarr sync $options $preview"
 /usr/local/bin/recyclarr sync $options $preview $debug 2>&1 >$FIFO &
 
 # Listen output and publish messages

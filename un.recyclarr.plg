@@ -176,7 +176,7 @@ The 'install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Creating folders and files"
-install -dm644 &flash;/{configs,cache} &appdata;/{logs,repositories}
+install -dm644 &flash;/{configs,cache} &appdata;/{logs,repositories} /var/log/recyclarr
 if [[ ! -f &flash;/secrets.yml ]]; then
   install -m600 /dev/null &flash;/secrets.yml
 fi
@@ -185,6 +185,9 @@ echo "Pointing symlinks to flash"
 ln -sf &flash;/secrets.yml &appdata;
 ln -sf &flash;/configs -T &appdata;/configs
 ln -sf &flash;/cache -T &appdata;/cache
+
+echo "Pointing logs to /var/log"
+ln -sf /var/log/recyclarr &appdata;/logs/cli
 </INLINE>
 </FILE>
 
@@ -205,7 +208,7 @@ The 'remove' script
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
 removepkg &name;-&version;
-rm -rf &emhttp; &appdata; &flash;/*.{cron,txz}
+rm -rf &emhttp; &appdata; &flash;/*.{cron,txz} /var/log/recyclarr
 /usr/local/sbin/update_cron
 echo "--------------------------------------"
 echo "--- Recyclarr has been uninstalled ---"

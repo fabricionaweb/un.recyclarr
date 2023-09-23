@@ -4,6 +4,8 @@
 TERM=xterm
 # Default appdata folder
 APPDATA=/root/.config/recyclarr
+# Our custom log file
+LOGFILE="recyclarr_$(date +%F).log"
 # First argument. Expects "version" or "nchan"
 ARG1="$1"
 # Second argument. Expect "config file" or "-p" or "-d"
@@ -41,6 +43,7 @@ publish() {
   # Filter preview and debug from syslog - too much info
   if [[ -z "$preview" && -z "$debug" ]]; then
     logger -t recyclarr "$1"
+    echo "[$(date +%T)] $1" >>"$APPDATA/logs/cli/$LOGFILE"
   fi
 
   # Publish to frontend if the argument is nchan

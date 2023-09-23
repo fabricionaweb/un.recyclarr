@@ -87,6 +87,27 @@ Run manually:
   <button type="button" name="create">New file</button>
 </div>
 
+<!-- Useful references -->
+<div class="title">Useful references</div>
+<div style="padding-left:12px">
+  <ul class="flex-col" style="padding-left:14px">
+    <li>
+      <a href="https://recyclarr.dev/wiki/" target="_blank" rel="noreferrer">
+        Recyclarr Wiki
+      </a>
+    </li>
+    <li>
+      <a href="https://recyclarr.dev/wiki/guide-configs/" target="_blank" rel="noreferrer">
+        Pre-Built Configuration Files
+      </a>
+    </li>
+    <li>
+      <a href="https://trash-guides.info/" target="_blank" rel="noreferrer">
+        TRaSH Guides
+      </a>
+    </li>
+  </ul>
+</div>
 
 <!-- Static assets -->
 <script type="text/javascript" src="<?autov("/plugins/un.recyclarr/assets/ace-1.5.0/ace.js")?>"></script>

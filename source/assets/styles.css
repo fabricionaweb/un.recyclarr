@@ -7,6 +7,12 @@
   flex-wrap: wrap;
 }
 
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 /* Extends dynamic styles */
 div.user-list {
   justify-content: center;

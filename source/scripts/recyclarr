@@ -17,7 +17,14 @@ if [[ "$ARG1" == "version" ]]; then
   exit $?
 fi
 
-# Make recyclarr dry run argument
+# Make recyclarr sync argument
+if [[ -n "$ARG2" && "$ARG2" != "-p" && "$ARG2" != "-d" ]]; then
+  # Filter argument extensions and path
+  configFile=$(basename ${ARG2%.*})
+  options="-c $APPDATA/configs/$configFile.yml"
+fi
+
+# Make recyclarr dry run (preview) argument
 if [[ "$ARG2" == "-p" || "$ARG3" == "-p" ]]; then
   preview="-p"
 fi
@@ -27,17 +34,12 @@ if [[ "$ARG2" == "-d" || "$ARG3" == "-d" || "$ARG4" == "-d" ]]; then
   debug="-d"
 fi
 
-# Make recyclarr sync argument
-if [[ -n "$ARG2" && "$ARG2" != "-p" && "$ARG2" != "-d" ]]; then
-  # Filter argument extensions and path
-  configFile=$(basename ${ARG2%.*})
-  options="-c $APPDATA/configs/$configFile.yml"
-fi
-
 # Publish messages to nchan sub
 publish() {
-  # Always log to syslog
-  logger -t recyclarr "$1"
+  # Filter preview and debug from syslog - too much info
+  if [[ -z "$preview" && -z "$debug" && "$1" != "[DONE]" ]]; then
+    logger -t recyclarr "$1"
+  fi
 
   # Publish to frontend if the argument is nchan
   if [[ "$ARG1" == "nchan" ]]; then

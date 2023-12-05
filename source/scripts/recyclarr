@@ -17,7 +17,7 @@ ARG4="$4"
 
 # Print the version and die
 if [[ "$ARG1" == "version" ]]; then
-  /usr/local/bin/recyclarr --version
+  /usr/local/bin/recyclarr --version | cut -d "+" -f 1
   exit $?
 fi
 

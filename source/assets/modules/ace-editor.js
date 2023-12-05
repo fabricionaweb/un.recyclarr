@@ -10,6 +10,10 @@ export const start = (elementId) => {
     tabSize: 2,
   })
 
+  // Disables promtp and settings
+  Editor.commands.removeCommand("showSettingsMenu")
+  Editor.commands.removeCommand("openCommandPalette")
+
   // Focus first line
   Editor.focus()
 }

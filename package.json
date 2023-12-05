@@ -9,8 +9,11 @@
   "scripts": {
     "build": "esbuild source/assets/entry.js --bundle --target=es2020 --outfile=source/assets/bundle.js"
   },
-  "packageManager": "pnpm@8.7.1",
+  "packageManager": "pnpm@8.11.0",
+  "engines": {
+    "node": ">=20"
+  },
   "dependencies": {
-    "esbuild": "0.19.2"
+    "esbuild": "^0.19.8"
   }
 }

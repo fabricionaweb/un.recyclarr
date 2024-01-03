@@ -5,7 +5,7 @@
 # 2) copy "src-min-noconflict" folder to "source/assets/ace"
 # 3) removes unnecessary files
 
-version="1.32.0"
+version="1.32.3"
 dest="source/assets/ace-builds"
 
 rm -rf "$dest"

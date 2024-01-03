@@ -11,7 +11,9 @@ export const getVersion = () =>
 // Run on manual (using dynamix)
 export const runManual = ({ config = "", preview, debug }) =>
   $.post("/webGui/include/StartCommand.php", {
-    cmd: `recyclarr nchan ${config} ${preview ? "-p" : ""} ${debug ? "-d" : ""}`,
+    cmd: `recyclarr nchan ${config} ${preview ? "-p" : ""} ${
+      debug ? "-d" : ""
+    }`,
     start: 1, // Run new instance and return pid
   })
 

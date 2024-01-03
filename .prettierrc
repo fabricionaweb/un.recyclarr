@@ -6,5 +6,6 @@
   "arrowParens": "always",
   "endOfLine": "lf",
   "quoteProps": "consistent",
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "proseWrap": "always"
 }

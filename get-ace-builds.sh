@@ -12,7 +12,7 @@ rm -rf "$dest"
 mkdir -p "$dest"
 
 wget -qO- --show-progress https://github.com/ajaxorg/ace-builds/archive/refs/tags/v$version.tar.gz |
-  tar xvJ --strip-components=2 -C source/assets/ace-builds ace-builds-$version/src-min-noconflict
+  tar xvJ --strip-components=2 -C source/assets/ace-builds ace-builds-$version/src-noconflict
 
 (
   cd "$dest"
@@ -23,4 +23,5 @@ wget -qO- --show-progress https://github.com/ajaxorg/ace-builds/archive/refs/tag
   find . \( -name "worker-*" -a ! -name "worker-base.js" -a ! -name "worker-yaml.js" \) -delete
   # disable some functions
   find . \( -name "ext-settings_menu.js" -o -name "ext-prompt.js" \) -delete
+  # apply patches to yaml !secrets
 )

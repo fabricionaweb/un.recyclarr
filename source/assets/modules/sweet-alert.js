@@ -76,6 +76,7 @@ export const edit = (fileName) => async (contents) => {
         confirmButtonText: "Save",
         showCancelButton: true,
         closeOnConfirm: false,
+        allowEscapeKey: false,
       },
       resolve
     )

@@ -32,6 +32,9 @@ var YamlHighlightRules = function () {
                 token: "keyword.operator",
                 regex: "-\\s*(?=[{])"
             }, {
+                token: "keyword.operator",
+                regex: "!\\w*\\s*",
+            }, {
                 token: "string", // single line
                 regex: '["](?:(?:\\\\.)|(?:[^"\\\\]))*?["]'
             }, {

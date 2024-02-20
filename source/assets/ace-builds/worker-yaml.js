@@ -4963,6 +4963,11 @@ module.exports = new Type('tag:yaml.org,2002:timestamp', {
   represent: representYamlTimestamp
 });
 
+module.exports = new Type('!secret', {
+  kind: 'scalar',
+  construct: function (data) { return data !== null ? data : ''; }
+});
+
 },{"../type":16}],33:[function(require,module,exports){
 (function (global){
 var LARGE_ARRAY_SIZE = 200;

@@ -23,5 +23,7 @@ wget -qO- --show-progress https://github.com/ajaxorg/ace-builds/archive/refs/tag
   find . \( -name "worker-*" -a ! -name "worker-base.js" -a ! -name "worker-yaml.js" \) -delete
   # disable some functions
   find . \( -name "ext-settings_menu.js" -o -name "ext-prompt.js" \) -delete
-  # apply patches to yaml !secrets
 )
+
+# apply patches to yaml !secrets
+git apply ace-builds-secret-tag.patch

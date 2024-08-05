@@ -12,7 +12,7 @@ rm -rf "$dest"
 mkdir -p "$dest"
 
 wget -qO- --show-progress https://github.com/ajaxorg/ace-builds/archive/refs/tags/v$version.tar.gz |
-  tar xvJ --strip-components=2 -C source/assets/ace-builds ace-builds-$version/src-noconflict
+  tar -xvz --strip-components=2 -C source/assets/ace-builds ace-builds-$version/src-noconflict
 
 (
   cd "$dest"

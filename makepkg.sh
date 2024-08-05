@@ -23,7 +23,7 @@ download() {
   fi
 
   # download and extract
-  wget -qO- --show-progress "https://github.com/recyclarr/recyclarr/releases/$release/recyclarr-linux-x64.tar.xz" | tar xvJ -C $bin
+  wget -qO- --show-progress "https://github.com/recyclarr/recyclarr/releases/$release/recyclarr-linux-x64.tar.xz" | tar -xvJ -C $bin
 }
 
 frontend_build() {
@@ -43,8 +43,8 @@ copy() {
 compress() {
   # change workdir to rootfs
   cd $rootfs
-  # create the package (bsdtar/mac)
-  tar -cvJ --format gnutar --numeric-owner --uid 0 --gid 0 -f ../un.recyclarr.txz .
+  # create the package
+  tar --numeric-owner --owner=0 --group=0 -cvJf ../un.recyclarr.txz .
   # restore workdir
   cd ../../
 }

@@ -70,7 +70,7 @@ class App {
   // Prints current version in header
   version = async () => {
     const version = await Services.getVersion()
-    this.$title.append(`<span class="right"><small>v${version}<small></span>`)
+    this.$title.append(`<span class="right"><small>${version}<small></span>`)
   }
 
   nchanLog = (data) => {

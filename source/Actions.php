@@ -6,7 +6,7 @@ try {
   header("Content-Type: application/json");
 
   $requests = new Requests();
-  $response = $requests->route($_GET['action'] ?? $_POST['action']);
+  $response = $requests->route($_GET["action"] ?? $_POST["action"]);
 
   echo json_encode($response);
 } catch(Throwable $e) {

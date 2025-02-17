@@ -10,7 +10,7 @@ class Requests {
   function __construct() {
     $this->schedule = $this->handleScheduleEnum($_POST["schedule"]);
     $this->custom   = $this->handleCustomCron($_POST["custom"]);
-    $this->fileName = $this->handleFileName($_REQUEST["fileName"]);
+    $this->fileName = $this->handleFileName($_GET["fileName"] ?? $_POST["fileName"]);
     $this->contents = $_POST["contents"];
   }
 
@@ -53,11 +53,11 @@ class Requests {
     // Only accept XHR requests
     if (!empty($action) && isset($_SERVER["HTTP_X_REQUESTED_WITH"])) {
       switch($action) {
-        case 'update-cron'   : return $this->updateCron();
-        case 'create-config' : return $this->createConfig();
-        case 'view-config'   : return $this->viewConfig();
-        case 'update-config' : return $this->updateConfig();
-        case 'delete-config' : return $this->deleteConfig();
+        case "update-cron"   : return $this->updateCron();
+        case "create-config" : return $this->createConfig();
+        case "view-config"   : return $this->viewConfig();
+        case "update-config" : return $this->updateConfig();
+        case "delete-config" : return $this->deleteConfig();
       }
     }
 

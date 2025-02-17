@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2024.12.23">
+  <!ENTITY version   "2025.02.17">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "3129305bc54d7be87915a321fa38307d">
+  <!ENTITY md5       "41916e778bb38b6a5d02abfa274665b9">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -29,6 +29,11 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Upgrade ace-editor to 1.38.0
+- Upgrade binary to 7.4.1 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.1
+- Better handling fileName requests
+
+### 2024.12.23
 - Upgrade ace-editor to 1.37.1
 - Upgrade binary to 7.4.0 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.0
 

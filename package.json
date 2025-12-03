@@ -9,14 +9,14 @@
   "scripts": {
     "build": "esbuild source/assets/entry.js --bundle --target=es2020 --outfile=source/assets/bundle.js"
   },
-  "packageManager": "pnpm@9.15.1",
+  "packageManager": "pnpm@10.24.0",
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
-    "esbuild": "^0.24.2"
+    "esbuild": "^0.27.1"
   },
   "devDependencies": {
-    "prettier": "^3.4.2"
+    "prettier": "^3.7.4"
   }
 }

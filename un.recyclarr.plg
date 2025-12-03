@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2025.02.17">
+  <!ENTITY version   "2025.12.03">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "41916e778bb38b6a5d02abfa274665b9">
+  <!ENTITY md5       "f05cf878c26f26be4239ac3e7a9f12bc">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -21,7 +21,7 @@
   launch="&launch;"
   support="&gitURL;/issues"
   icon="fa-trash-o"
-  min="6.12.0"
+  min="7.0.0"
 >
 
 <!--
@@ -29,6 +29,12 @@ Release notes
 -->
 <CHANGES>
 ### &version;
+- Upgrade ace-editor to 1.45.3
+- Upgrade binary to 7.5.2 - https://github.com/recyclarr/recyclarr/releases/tag/v7.5.2
+- Fix delete button not clicklable - https://github.com/fabricionaweb/un.recyclarr/issues/1
+- Fix better responsive UI for Unraid 7.0 - https://github.com/fabricionaweb/un.recyclarr/issues/1
+
+### 2025.12.03
 - Upgrade ace-editor to 1.38.0
 - Upgrade binary to 7.4.1 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.1
 - Better handling fileName requests

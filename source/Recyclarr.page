@@ -42,7 +42,7 @@ Run on schedule:
 > **Custom** Allows you to enter the expression.
 
 &nbsp;
-: <button type="button" name="apply" disabled>Apply</button>
+: <span class="inline-block"><button type="button" name="apply" disabled>Apply</button></span>
 <span id="response"></span>
 </div>
 
@@ -58,39 +58,37 @@ Run manually:
       }
     ?>
   </select>
-  <label>
-    <input type="checkbox" name="preview" /> Preview
-  </label>
-  <label>
-    <input type="checkbox" name="debug" /> Debug
-  </label>
+  <span class="inline-block">
+    <label style="margin-right:24px"><input type="checkbox" name="preview" /> Preview</label>
+    <label><input type="checkbox" name="debug" /> Debug</label>
+  </span>
 
 &nbsp;
-: <button type="button" name="run">Run now</button>
+: <span class="inline-block"><button type="button" name="run">Run now</button></span>
 </div>
 
 <!-- Configuration files -->
 <div class="title">Configuration</div>
-<div style="padding-left:12px">
-  <div class="flex">
-    <!-- Secrets should always exist -->
-    <?=mk_config_file("secrets", "secrets", "warning")?>
+<div class="Panels">
+  <!-- Secrets should always exist -->
+  <?=mk_config_file("secrets", "secrets", "warning")?>
 
-    <!-- Loop over configs folder -->
-    <?php
-      foreach($settings->files as $fileName) {
-        echo mk_config_file(pathinfo($fileName, PATHINFO_FILENAME), $fileName);
-      }
-    ?>
+  <!-- Loop over configs folder -->
+  <?php
+    foreach($settings->files as $fileName) {
+      echo mk_config_file(pathinfo($fileName, PATHINFO_FILENAME), $fileName);
+    }
+  ?>
+
+  <div class="Panel create">
+    <button type="button" name="create">Create</button>
   </div>
-
-  <button type="button" name="create">New file</button>
 </div>
 
 <!-- Useful references -->
 <div class="title">Useful references</div>
-<div style="padding-left:12px">
-  <ul class="flex-col" style="padding-left:14px">
+<div>
+  <ul>
     <li>
       <a href="https://recyclarr.dev/wiki/" target="_blank" rel="noreferrer">
         Recyclarr Wiki

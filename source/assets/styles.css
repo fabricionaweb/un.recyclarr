@@ -2,30 +2,15 @@
   visibility: hidden;
 }
 
-.flex {
-  display: flex;
-  flex-wrap: wrap;
+.Panel img {
+  width: 36px;
 }
 
-.flex-col {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.Panel.create {
+  padding-top: 24px;
 }
-
-/* Extends dynamic styles */
-div.user-list {
-  justify-content: center;
-  margin-right: 24px;
-}
-
-div.user-list img {
-  display: block;
-  margin: 10px auto;
-}
-
-div.user-list a {
-  text-align: center;
+.Panel.create button {
+  margin: 0;
 }
 
 /* Extends sweet-alert styles */

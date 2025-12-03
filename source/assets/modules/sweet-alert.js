@@ -66,7 +66,7 @@ export const edit = (fileName) => async (contents) => {
               // Delete button
               isSecrets
                 ? ""
-                : `<a href="?name=${fileName}" data-file-name="${fileName}" class="failed yml-delete">Delete</a>`
+                : `<a href="?name=${fileName}" data-file-name="${fileName}" class="localURL failed yml-delete">Delete</a>`
             }
           `,
         customClass: "nchan", // Use same class but not using nchan here

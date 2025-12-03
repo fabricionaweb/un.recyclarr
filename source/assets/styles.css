@@ -67,4 +67,5 @@ pre#swaltext.ace_editor {
   left: 50%;
   bottom: 0;
   transform: translate(104px, 48px);
+  z-index: 1;
 }

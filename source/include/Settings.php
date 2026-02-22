@@ -26,7 +26,7 @@ class Settings {
 
   // Return list of files inside configs folder
   public static function getConfigFiles() {
-    return preg_grep("/\.yml$/", scandir(Plugin::CONFIGS_DIR));
+    return preg_grep("/\.yml$/", scandir(Plugin::CONFIGS_PATH));
   }
 
   // You must validate $expression before call the method
@@ -51,21 +51,21 @@ class Settings {
     $fileContents  = self::HEADING;
     $fileContents .= "# https://recyclarr.dev/reference/configuration".PHP_EOL;
 
-    return file_put_contents(Plugin::CONFIGS_DIR."/$fileName", $fileContents.PHP_EOL);
+    return file_put_contents(Plugin::CONFIGS_PATH."/$fileName", $fileContents.PHP_EOL);
   }
 
   // You must validate $fileName before call the method
   public static function getConfigContents($fileName) {
-    return @file_get_contents(Plugin::CONFIGS_DIR."/$fileName");
+    return @file_get_contents(Plugin::CONFIGS_PATH."/$fileName");
   }
 
   // You must validate $fileName before call the method
   public static function saveConfigContents($fileName, $contents) {
-    return file_put_contents(Plugin::CONFIGS_DIR."/$fileName", $contents);
+    return file_put_contents(Plugin::CONFIGS_PATH."/$fileName", $contents);
   }
 
   // You must validate $fileName before call the method
   public static function deleteConfigFile($fileName) {
-    return unlink(Plugin::CONFIGS_DIR."/$fileName");
+    return unlink(Plugin::CONFIGS_PATH."/$fileName");
   }
 }

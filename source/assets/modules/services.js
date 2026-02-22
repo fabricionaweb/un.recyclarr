@@ -13,7 +13,7 @@ export const runManual = ({ config = "", preview, debug }) => {
   // args is parsed by "scripts/recyclarr" before forward it
   const args = `${preview ? "-p" : ""} ${debug ? "-d" : ""}`
 
-  $.post("/webGui/include/StartCommand.php", {
+  return $.post("/webGui/include/StartCommand.php", {
     cmd: `recyclarr nchan ${config} ${args}`,
     start: 1, // Run new instance and return pid
   })

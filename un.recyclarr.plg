@@ -24,9 +24,7 @@
   min="7.0.0"
 >
 
-<!--
-Release notes
--->
+<!-- Release notes -->
 <CHANGES>
 ### &version;
 - Upgrade ace-editor to 1.45.3
@@ -181,9 +179,7 @@ Release notes
 - First release
 </CHANGES>
 
-<!--
-Plugin description
--->
+<!-- Description -->
 <FILE Name="&emhttp;/README.md">
 <INLINE>
 **Recyclarr**
@@ -192,19 +188,15 @@ Automatically sync TRaSH guides to your Sonarr and Radarr instances. Allows you 
 </INLINE>
 </FILE>
 
-<!--
-Get the plugin and save
--->
-<FILE Name="&flash;/&name;-&version;.txz" Run="upgradepkg --install-new --reinstall">
-<URL>&gitURL;/releases/download/&version;/&name;.txz</URL>
-<MD5>&md5;</MD5>
-</FILE>
-
-<!--
-The 'pre-install' script
--->
+<!-- pre-install -->
 <FILE Run="/bin/bash">
 <INLINE>
+echo ""
+echo "+=================================+"
+echo "| un.recyclarr version &version; |"
+echo "+=================================+"
+echo ""
+
 echo "Removing old versions"
 find &flash; -type f -name "&name;-*.txz" ! -name "&name;-&version;.txz" -delete
 
@@ -213,9 +205,13 @@ rm -rf &flash;/cache &appdata;/cache &appdata;/repo*
 </INLINE>
 </FILE>
 
-<!--
-The 'install' script
--->
+<!-- install -->
+<FILE Name="&flash;/&name;-&version;.txz" Run="upgradepkg --install-new --reinstall">
+<URL>&gitURL;/releases/download/&version;/&name;.txz</URL>
+<MD5>&md5;</MD5>
+</FILE>
+
+<!-- post-install -->
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Creating folders and files"
@@ -225,36 +221,32 @@ if [[ ! -f &flash;/secrets.yml ]]; then
 fi
 
 echo "Pointing symlinks to flash"
-ln -sf &flash;/secrets.yml &appdata;
+ln -sf &flash;/secrets.yml &appdata;/
 ln -sf &flash;/configs -T &appdata;/configs
 
 echo "Pointing logs to /var/log"
 ln -sf /var/log/recyclarr &appdata;/logs/cli
+
+echo ""
+echo "+=================================+"
+echo "| un.recyclarr has been installed |"
+echo "+=================================+"
+echo ""
 </INLINE>
 </FILE>
 
-<!--
-The 'post-install' script
--->
-<FILE Run="/bin/bash">
-<INLINE>
-echo "------------------------------------"
-echo "--- Recyclarr has been installed ---"
-echo "------------------------------------"
-</INLINE>
-</FILE>
-
-<!--
-The 'remove' script
--->
+<!-- remove -->
 <FILE Run="/bin/bash" Method="remove">
 <INLINE>
 removepkg &name;-&version;
 rm -rf &emhttp; &appdata; &flash;/*.{cron,txz} /var/log/recyclarr
 /usr/local/sbin/update_cron
-echo "--------------------------------------"
-echo "--- Recyclarr has been uninstalled ---"
-echo "--------------------------------------"
+
+echo ""
+echo "+===============================+"
+echo "| un.recyclarr has been removed |"
+echo "+===============================+"
+echo ""
 </INLINE>
 </FILE>
 </PLUGIN>

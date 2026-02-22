@@ -97,13 +97,18 @@ Run manually:
       </a>
     </li>
     <li>
-      <a href="https://recyclarr.dev/guide/guide-configs/" target="_blank" rel="noreferrer">
+      <a href="https://recyclarr.dev/guide/guide-configs" target="_blank" rel="noreferrer">
         Pre-Built Configuration Files
       </a>
     </li>
     <li>
-      <a href="https://recyclarr.dev/reference/settings/resource-providers/" target="_blank" rel="noreferrer">
-        Resource Providers
+      <a href="https://recyclarr.dev/reference/configuration/value-substitution" target="_blank" rel="noreferrer">
+        Secrets
+      </a>
+    </li>
+    <li>
+      <a href="https://recyclarr.dev/reference/settings" target="_blank" rel="noreferrer">
+        Settings
       </a>
     </li>
     <li>

@@ -2,6 +2,7 @@
 
 class Requests {
   const SECRETS = "../secrets.yml";
+  const SETTINGS = "../settings.yml";
 
   private $schedule;
   private $schedule_user;
@@ -28,25 +29,25 @@ class Requests {
   }
 
   private function handleFileName($fileName) {
-    // If secrets
-    if ($fileName === "secrets") {
-      return self::SECRETS;
+    switch ($fileName) {
+      case "secrets":
+        return self::SECRETS;
+      case "settings":
+        return self::SETTINGS;
+      default:
+        // Extract the proper filename
+        return pathinfo($fileName, PATHINFO_FILENAME).".yml";
     }
-
-    // Extract the proper filename
-    return pathinfo($fileName, PATHINFO_FILENAME).".yml";
   }
 
   private function checkFileExists($return = false) {
-    // If not secrets, check if file exists in configs folder
-    if ($this->fileName !== self::SECRETS && !in_array($this->fileName, Settings::getConfigFiles())) {
-      if ($return) {
-        return true;
-      }
-
-      // Not Found
-      throw new Error("File does not exists", 404);
+    // Combine custom configs with internal configs
+    $files = array_merge(Settings::getConfigFiles(), [self::SECRETS, self::SETTINGS]);
+    if (!in_array($this->fileName, $files)) {
+      return $return ? false : throw new Error("File does not exists", 404);
     }
+
+    return true;
   }
 
   public function route($action) {

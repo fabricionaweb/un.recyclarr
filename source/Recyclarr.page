@@ -9,11 +9,9 @@ require $pageroot."/include/Includes.php";
 $settings = new Settings();
 ?>
 
-
 <!-- Static assets -->
 <script>const aceTheme = "<?=(in_array($theme, ['black','gray']) ? 'tomorrow_night' : 'tomorrow')?>";</script>
 <link rel="stylesheet" type="text/css" href="<?autov("/plugins/un.recyclarr/assets/styles.css")?>" />
-
 
 <!-- Crontab settings -->
 <div markdown="1">
@@ -68,11 +66,8 @@ Run manually:
 </div>
 
 <!-- Configuration files -->
-<div class="title">Configuration</div>
+<div class="title">Configuration files</div>
 <div class="Panels">
-  <!-- Secrets should always exist -->
-  <?=mk_config_file("secrets", "secrets", "warning")?>
-
   <!-- Loop over configs folder -->
   <?php
     foreach($settings->files as $fileName) {
@@ -83,6 +78,13 @@ Run manually:
   <div class="Panel create">
     <button type="button" name="create">Create</button>
   </div>
+</div>
+
+<!-- Settings files -->
+<div class="title">Settings files</div>
+<div class="Panels">
+  <?=mk_config_file("settings", "settings", "warning")?>
+  <?=mk_config_file("secrets", "secrets", "warning")?>
 </div>
 
 <!-- Useful references -->

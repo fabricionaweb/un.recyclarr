@@ -215,7 +215,7 @@ rm -rf &flash;/cache &appdata;/cache &appdata;/repo*
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Creating folders and files"
-install -dm644 &flash;/configs &appdata;/logs /var/log/recyclarr
+install -dm644 &flash;/{configs,includes,state} &appdata;/logs /var/log/recyclarr
 if [[ ! -f &flash;/secrets.yml ]]; then
   install -m600 /dev/null &flash;/secrets.yml
 fi
@@ -223,6 +223,8 @@ fi
 echo "Pointing symlinks to flash"
 ln -sf &flash;/secrets.yml &appdata;/
 ln -sf &flash;/configs -T &appdata;/configs
+ln -sf &flash;/includes -T &appdata;/includes
+ln -sf &flash;/state -T &appdata;/state
 
 echo "Pointing logs to /var/log"
 ln -sf /var/log/recyclarr &appdata;/logs/cli

@@ -44,7 +44,7 @@ compress() {
   # change workdir to rootfs
   cd $rootfs
   # create the package
-  tar --numeric-owner --owner=0 --group=0 -cvJf ../un.recyclarr.txz .
+  COPYFILE_DISABLE=1 tar --numeric-owner --owner=0 --group=0 -cvJf ../un.recyclarr.txz .
   # restore workdir
   cd ../../
 }

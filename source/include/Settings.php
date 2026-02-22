@@ -49,7 +49,7 @@ class Settings {
   // You must validate $fileName before call the method
   public static function createConfigFile($fileName) {
     $fileContents  = self::HEADING;
-    $fileContents .= "# https://recyclarr.dev/wiki/yaml/config-reference".PHP_EOL;
+    $fileContents .= "# https://recyclarr.dev/reference/configuration".PHP_EOL;
 
     return file_put_contents(Plugin::CONFIGS_DIR."/$fileName", $fileContents.PHP_EOL);
   }

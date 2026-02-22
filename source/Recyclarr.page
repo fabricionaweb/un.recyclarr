@@ -90,13 +90,18 @@ Run manually:
 <div>
   <ul>
     <li>
-      <a href="https://recyclarr.dev/wiki/" target="_blank" rel="noreferrer">
+      <a href="https://recyclarr.dev/guide" target="_blank" rel="noreferrer">
         Recyclarr Wiki
       </a>
     </li>
     <li>
-      <a href="https://recyclarr.dev/wiki/guide-configs/" target="_blank" rel="noreferrer">
+      <a href="https://recyclarr.dev/guide/guide-configs/" target="_blank" rel="noreferrer">
         Pre-Built Configuration Files
+      </a>
+    </li>
+    <li>
+      <a href="https://recyclarr.dev/reference/settings/resource-providers/" target="_blank" rel="noreferrer">
+        Resource Providers
       </a>
     </li>
     <li>

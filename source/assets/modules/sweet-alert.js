@@ -55,16 +55,16 @@ export const logs = async () =>
 
 // To render ace-editor when editing
 export const edit = (fileName) => async (contents) => {
-  const isSecrets = !fileName.endsWith(".yml")
+  const isRestrict = !fileName.endsWith(".yml")
 
   return new Promise((resolve) => {
     swal(
       {
-        title: isSecrets ? `${fileName}.yml` : fileName,
+        title: isRestrict ? `${fileName}.yml` : fileName,
         text: `<pre id='${preElement}'>${contents}</pre> \
             ${
               // Delete button
-              isSecrets
+              isRestrict
                 ? ""
                 : `<a href="?name=${fileName}" data-file-name="${fileName}" class="localURL failed yml-delete">Delete</a>`
             }

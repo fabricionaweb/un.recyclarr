@@ -27,11 +27,11 @@ Run on schedule:
     <?=mk_option($settings->schedule, "CUSTOM",   "Custom")?>
   </select>
   <input
-    name="custom"
+    name="schedule_user"
     type="text"
     maxlength="20"
     class="narrow <?=$settings->schedule !== "CUSTOM" ? "hidden" : ""?>"
-    value="<?=$settings->custom?>"
+    value="<?=$settings->schedule_user?>"
   />
 
 > **Disabled** Do not run it programatic, only manual<br>

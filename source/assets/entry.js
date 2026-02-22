@@ -17,7 +17,7 @@ class App {
     // Schedule available options
     this.$schedule = $("select[name=schedule]")
     // Custom cron input text
-    this.$custom = $("input[name=custom]")
+    this.$schedule_user = $("input[name=schedule_user]")
     // Button to apply changes
     this.$apply = $("button[name=apply]")
     // Displays feedback messages for schedule changes
@@ -45,7 +45,7 @@ class App {
     // When changing the cron schedule option
     this.$schedule.on("change", this.onScheduleChange)
     // When changing the custom cron value
-    this.$custom.on("input", this.onCustomInput)
+    this.$schedule_user.on("input", this.onScheduleUserInput)
     // When calling manual run
     this.$run.on("click", this.onRunClick)
     // When apply schedule changes
@@ -64,7 +64,7 @@ class App {
       subscriber: "websocket",
     })
     this.currentSchedule = this.$schedule.val()
-    this.currentCustom = this.$custom.val()
+    this.currentScheduleUser = this.$schedule_user.val()
   }
 
   // Prints current version in header
@@ -85,27 +85,29 @@ class App {
   onScheduleChange = () => {
     // Get form values
     const schedule = this.$schedule.val()
-    const custom = this.$custom.val()
+    const schedule_user = this.$schedule_user.val()
 
     // Always clean feedback message
     this.$response.html("")
     // For CUSTOM we enable the input
-    this.$custom.toggleClass("hidden", schedule !== "CUSTOM")
+    this.$schedule_user.toggleClass("hidden", schedule !== "CUSTOM")
 
     // Disable apply button if same value
     const hasNoChanges =
-      schedule === this.currentSchedule && custom === this.currentCustom
+      schedule === this.currentSchedule &&
+      schedule_user === this.currentScheduleUser
     this.$apply.attr("disabled", hasNoChanges)
   }
 
-  onCustomInput = () => {
+  onScheduleUserInput = () => {
     // Get form values
     const schedule = this.$schedule.val()
-    const custom = this.$custom.val()
+    const schedule_user = this.$schedule_user.val()
 
     // Disable apply button if same value
     const hasNoChanges =
-      schedule === this.currentSchedule && custom === this.currentCustom
+      schedule === this.currentSchedule &&
+      schedule_user === this.currentScheduleUser
     this.$apply.attr("disabled", hasNoChanges)
   }
 
@@ -134,18 +136,18 @@ class App {
 
     // Get form values
     const schedule = this.$schedule.val()
-    const custom = this.$custom.val()
+    const schedule_user = this.$schedule_user.val()
 
     // Disable apply button to prevent miss click
     this.$apply.attr("disabled", true)
 
     // Send request to save
     try {
-      const response = await Services.updateCron({ schedule, custom })
+      const response = await Services.updateCron({ schedule, schedule_user })
 
       // Change current state values
       this.currentSchedule = schedule
-      this.currentCustom = custom
+      this.currentScheduleUser = schedule_user
 
       // Show feedback
       this.$response

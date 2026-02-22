@@ -4,12 +4,12 @@ class Requests {
   const SECRETS = "../secrets.yml";
 
   private $schedule;
-  private $custom;
+  private $schedule_user;
   private $fileName;
 
   function __construct() {
-    $this->schedule = $this->handleScheduleEnum($_POST["schedule"]);
-    $this->custom   = $this->handleCustomCron($_POST["custom"]);
+    $this->schedule      = $this->handleScheduleEnum($_POST["schedule"]);
+    $this->schedule_user = $this->handleCustomCron($_POST["schedule_user"]);
     $this->fileName = $this->handleFileName($_GET["fileName"] ?? $_POST["fileName"]);
     $this->contents = $_POST["contents"];
   }
@@ -68,7 +68,7 @@ class Requests {
   // Update the recyclarr.cron file within schedule or custom
   private function updateCron() {
     // Validate custom cron
-    if (!empty($this->custom) && !preg_match(Plugin::CRON_REGEX, $this->custom, $matches)) {
+    if (!empty($this->schedule_user) && !preg_match(Plugin::CRON_REGEX, $this->schedule_user, $matches)) {
       // Not Acceptable
       throw new Error("Invalid cron", 406);
     }

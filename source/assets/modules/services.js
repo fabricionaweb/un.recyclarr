@@ -18,8 +18,8 @@ export const runManual = ({ config = "", preview, debug }) =>
   })
 
 // Save schedule crontab
-export const updateCron = ({ schedule, custom }) =>
-  $.post(ENDPOINT, { action: "update-cron", schedule, custom })
+export const updateCron = ({ schedule, schedule_user }) =>
+  $.post(ENDPOINT, { action: "update-cron", schedule, schedule_user })
 
 // Create config file
 export const createConfig = (fileName) =>

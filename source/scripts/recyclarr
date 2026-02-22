@@ -25,17 +25,17 @@ fi
 if [[ -n "$ARG2" && "$ARG2" != "-p" && "$ARG2" != "-d" ]]; then
   # Filter argument extensions and path
   configFile=$(basename ${ARG2%.*})
-  options="-c $APPDATA/configs/$configFile.yml"
+  options="--config $APPDATA/configs/$configFile.yml"
 fi
 
 # Make recyclarr dry run (preview) argument
 if [[ "$ARG2" == "-p" || "$ARG3" == "-p" ]]; then
-  preview="-p"
+  preview="--preview"
 fi
 
 # Make recyclarr debug argument
 if [[ "$ARG2" == "-d" || "$ARG3" == "-d" || "$ARG4" == "-d" ]]; then
-  debug="-d"
+  debug="--log debug"
 fi
 
 # Publish messages to nchan sub
@@ -58,6 +58,9 @@ publish() {
 FIFO=$(mktemp -u)
 mkfifo $FIFO
 
+# First log message
+echo "[INF] Started at $(date +"%m/%d/%Y %H:%M:%S")" >$FIFO &
+
 # Run the program async and write output lines in that file
 /usr/local/bin/recyclarr sync $options $preview $debug 2>&1 >$FIFO &
 
@@ -66,5 +69,8 @@ while read LINE; do publish "$LINE"; done <$FIFO
 
 # Wait program ends and send last message
 wait
+
+# "[DONE]" is filtered in frontend to control sessions logs
 publish "[DONE]"
+
 rm $FIFO

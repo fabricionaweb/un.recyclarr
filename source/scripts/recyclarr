@@ -38,6 +38,15 @@ if [[ "$ARG2" == "-d" || "$ARG3" == "-d" || "$ARG4" == "-d" ]]; then
   debug="--log debug"
 fi
 
+htmlEscape() {
+  local s="$1"
+  s=${s//&/"&amp;"}
+  s=${s//</"&lt;"}
+  s=${s//>/"&gt;"}
+  s=${s//'"'/"&quot;"}
+  printf -- %s "$s"
+}
+
 # Publish messages to nchan sub
 publish() {
   # Filter preview and debug from syslog - too much info
@@ -48,7 +57,7 @@ publish() {
 
   # Publish to frontend if the argument is nchan
   if [[ "$ARG1" == "nchan" ]]; then
-    curl -H "Content-Type: text/plain" -X POST --data "$1" \
+    curl -H "Content-Type: text/plain" -X POST --data "$(htmlEscape "$1")" \
       --unix-socket /var/run/nginx.socket \
       "http://localhost/pub/recyclarr?buffer_length=1"
   fi

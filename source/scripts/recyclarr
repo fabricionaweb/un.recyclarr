@@ -68,10 +68,9 @@ FIFO=$(mktemp -u)
 mkfifo $FIFO
 
 # First log message
-echo "[INF] Started at $(date +"%m/%d/%Y %H:%M:%S")" >$FIFO &
-
+(echo "[INF] Started at $(date +"%m/%d/%Y %H:%M:%S")" && echo "") >$FIFO &
 # Run the program async and write output lines in that file
-/usr/local/bin/recyclarr sync $options $preview $debug 2>&1 >$FIFO &
+(sleep 0.1 && /usr/local/bin/recyclarr sync $options $preview $debug && echo "[INF] Finished at $(date +"%m/%d/%Y %H:%M:%S")") 2>&1 >$FIFO &
 
 # Listen output and publish messages
 while read LINE; do publish "$LINE"; done <$FIFO

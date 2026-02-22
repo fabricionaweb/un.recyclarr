@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2025.12.03">
+  <!ENTITY version   "2026.02.22">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "f05cf878c26f26be4239ac3e7a9f12bc">
+  <!ENTITY md5       "ae84192beb303f13de4fc195cc2b24a8">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -27,28 +27,36 @@
 <!-- Release notes -->
 <CHANGES>
 ### &version;
+- Upgrade recyclarr binary to 8.2.0 https://github.com/recyclarr/recyclarr/releases/tag/v8.2.0
+  - **[BREAKING CHANGES]** Upgrade guide https://recyclarr.dev/guide/upgrade-guide/v8.0
+- Update "Useful references" links
+- Add new "Setting files" section ("settings.yml" and "secrets.yml")
+- Upgrade ace-editor to 1.43.6
+- Dont point repositories/cache to USB
+
+### 2025.12.03
 - Upgrade ace-editor to 1.45.3
-- Upgrade binary to 7.5.2 - https://github.com/recyclarr/recyclarr/releases/tag/v7.5.2
+- Upgrade recyclarr binary to 7.5.2 - https://github.com/recyclarr/recyclarr/releases/tag/v7.5.2
 - Fix delete button not clicklable - https://github.com/fabricionaweb/un.recyclarr/issues/1
 - Fix better responsive UI for Unraid 7.0 - https://github.com/fabricionaweb/un.recyclarr/issues/1
 
 ### 2025.02.17
 - Upgrade ace-editor to 1.38.0
-- Upgrade binary to 7.4.1 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.1
+- Upgrade recyclarr binary to 7.4.1 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.1
 - Better handling fileName requests
 
 ### 2024.12.23
 - Upgrade ace-editor to 1.37.1
-- Upgrade binary to 7.4.0 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.0
+- Upgrade recyclarr binary to 7.4.0 - https://github.com/recyclarr/recyclarr/releases/tag/v7.4.0
 
 ### 2024.09.05
 - Upgrade ace-editor to 1.36.2
-- Upgrade binary to 7.2.3 - https://github.com/recyclarr/recyclarr/releases/tag/v7.2.3
+- Upgrade recyclarr binary to 7.2.3 - https://github.com/recyclarr/recyclarr/releases/tag/v7.2.3
 
 ### 2024.08.05
 - Upgrade ace-editor to 1.35.4
-- Upgrade binary to 7.2.1 - https://github.com/recyclarr/recyclarr/releases/tag/v7.2.1
-  - Upgrade guide https://recyclarr.dev/wiki/upgrade-guide/v7.0/
+- Upgrade recyclarr binary to 7.2.1 - https://github.com/recyclarr/recyclarr/releases/tag/v7.2.1
+  - **[BREAKING CHANGES]** Upgrade guide https://recyclarr.dev/wiki/upgrade-guide/v7.0/
 
 ### 2024.02.20
 - Upgrade ace-editor to 1.32.3
@@ -60,7 +68,7 @@
 - Display shorter recyclarr version
 
 ### 2023.11.03
-- Upgrade binary to 6.0.2 - https://github.com/recyclarr/recyclarr/releases/tag/v6.0.2
+- Upgrade recyclarr binary to 6.0.2 - https://github.com/recyclarr/recyclarr/releases/tag/v6.0.2
 
 ### 2023.09.23
 - Mirror logs to /var/log/recyclarr
@@ -68,55 +76,55 @@
 - Fix missing console messages when crontab runs
 
 ### 2023.09.19
-- Upgrade binary to 5.4.3 - https://github.com/recyclarr/recyclarr/releases/tag/v5.4.3
+- Upgrade recyclarr binary to 5.4.3 - https://github.com/recyclarr/recyclarr/releases/tag/v5.4.3
 
 ### 2023.09.16
-- Upgrade binary to 5.4.2 - https://github.com/recyclarr/recyclarr/releases/tag/v5.4.2
+- Upgrade recyclarr binary to 5.4.2 - https://github.com/recyclarr/recyclarr/releases/tag/v5.4.2
 
 ### 2023.09.14
-- Upgrade binary to 5.4.1 - https://github.com/recyclarr/recyclarr/releases/tag/v5.4.1
+- Upgrade recyclarr binary to 5.4.1 - https://github.com/recyclarr/recyclarr/releases/tag/v5.4.1
 
 ### 2023.08.31
-- Upgrade binary to 5.3.1 - https://github.com/recyclarr/recyclarr/releases/tag/v5.3.1
+- Upgrade recyclarr binary to 5.3.1 - https://github.com/recyclarr/recyclarr/releases/tag/v5.3.1
 
 ### 2023.08.08
-- Upgrade binary to 5.2.1 - https://github.com/recyclarr/recyclarr/releases/tag/v5.2.1
+- Upgrade recyclarr binary to 5.2.1 - https://github.com/recyclarr/recyclarr/releases/tag/v5.2.1
 
 ### 2023.08.07
-- Upgrade binary to 5.2.0 - https://github.com/recyclarr/recyclarr/releases/tag/v5.2.0
+- Upgrade recyclarr binary to 5.2.0 - https://github.com/recyclarr/recyclarr/releases/tag/v5.2.0
 
 ## 2023.06.30
-- Upgrade binary to 5.1.1
+- Upgrade recyclarr binary to 5.1.1
 
 ### 2023.06.26-4
 - Fix to PHP8 and Unraid 6.12
-- Upgrade binary to 5.1.0
+- Upgrade recyclarr binary to 5.1.0
 
 ### 2023.06.26-1
 - Add debug mode to manual run
 
 ### 2023.06.26
-- Upgrade binary to 5.0.3
+- Upgrade recyclarr binary to 5.0.3
 
 ### 2023.06.25
-- Upgrade binary to 5.0.2
+- Upgrade recyclarr binary to 5.0.2
 
 ### 2023.04.24
-- Upgrade binary to 5.0.1
+- Upgrade recyclarr binary to 5.0.1
 
 ### 2023.04.23
-- Upgrade binary to 5.0.0
+- Upgrade recyclarr binary to 5.0.0
 - Remove repo folder during install/upgrade
 
 ### 2023.04.10-1
 - Add the hability to dry-run and to select the config file to manual run
 
 ### 2023.04.10
-- Upgrade binary version to v4.4.1
+- Upgrade recyclarr binary to 4.4.1
 - Refactor PHP code
 
 ### 2023.04.07
-- Display binary version on settings page
+- Display recyclarr binary version on settings page
 
 ### 2023.04.07
 - Allow delete config files
@@ -219,9 +227,13 @@ install -dm644 &flash;/{configs,includes,state} &appdata;/logs /var/log/recyclar
 if [[ ! -f &flash;/secrets.yml ]]; then
   install -m600 /dev/null &flash;/secrets.yml
 fi
+if [[ ! -f &flash;/settings.yml ]]; then
+  install -m600 /dev/null &flash;/settings.yml
+fi
 
 echo "Pointing symlinks to flash"
 ln -sf &flash;/secrets.yml &appdata;/
+ln -sf &flash;/settings.yml &appdata;/
 ln -sf &flash;/configs -T &appdata;/configs
 ln -sf &flash;/includes -T &appdata;/includes
 ln -sf &flash;/state -T &appdata;/state

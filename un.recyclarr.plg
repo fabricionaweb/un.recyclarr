@@ -207,7 +207,9 @@ The 'pre-install' script
 <INLINE>
 echo "Removing old versions"
 find &flash; -type f -name "&name;-*.txz" ! -name "&name;-&version;.txz" -delete
-rm -rf &appdata;/repo*
+
+echo "Cleaning cache"
+rm -rf &flash;/cache &appdata;/cache &appdata;/repo*
 </INLINE>
 </FILE>
 
@@ -217,7 +219,7 @@ The 'install' script
 <FILE Run="/bin/bash">
 <INLINE>
 echo "Creating folders and files"
-install -dm644 &flash;/{configs,cache} &appdata;/{logs,repositories} /var/log/recyclarr
+install -dm644 &flash;/configs &appdata;/logs /var/log/recyclarr
 if [[ ! -f &flash;/secrets.yml ]]; then
   install -m600 /dev/null &flash;/secrets.yml
 fi
@@ -225,7 +227,6 @@ fi
 echo "Pointing symlinks to flash"
 ln -sf &flash;/secrets.yml &appdata;
 ln -sf &flash;/configs -T &appdata;/configs
-ln -sf &flash;/cache -T &appdata;/cache
 
 echo "Pointing logs to /var/log"
 ln -sf /var/log/recyclarr &appdata;/logs/cli

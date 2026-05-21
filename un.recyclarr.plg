@@ -3,10 +3,10 @@
 <!DOCTYPE PLUGIN [
   <!ENTITY name      "un.recyclarr">
   <!ENTITY author    "fabricionaweb">
-  <!ENTITY version   "2026.03.10">
+  <!ENTITY version   "2026.05.21">
   <!ENTITY gitURL    "https://github.com/&author;/&name;">
   <!ENTITY pluginURL "https://raw.githubusercontent.com/&author;/&name;/master/&name;.plg">
-  <!ENTITY md5       "89822d1e32c3775bd1b3feff6c6790f3">
+  <!ENTITY md5       "d09c5465ed5fb79d63f5d407531b9411">
   <!ENTITY launch    "Settings/Recyclarr">
   <!ENTITY flash     "/boot/config/plugins/&name;">
   <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
@@ -27,6 +27,11 @@
 <!-- Release notes -->
 <CHANGES>
 ### &version;
+- Fix check for file existing
+- Upgrade recyclarr binary to 8.6.0 https://github.com/recyclarr/recyclarr/releases/tag/v8.6.0
+- Upgrade ace-editor to 1.44.0
+
+### 2026.03.10
 - Upgrade recyclarr binary to 8.4.0 https://github.com/recyclarr/recyclarr/releases/tag/v8.4.0
 
 ### 2026.02.25

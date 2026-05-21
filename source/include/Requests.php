@@ -40,14 +40,10 @@ class Requests {
     }
   }
 
-  private function checkFileExists($return = false) {
+  private function checkFileExists() {
     // Combine custom configs with internal configs
     $files = array_merge(Settings::getConfigFiles(), [self::SECRETS, self::SETTINGS]);
-    if (!in_array($this->fileName, $files)) {
-      return $return ? false : throw new Error("File does not exists", 404);
-    }
-
-    return true;
+    return in_array($this->fileName, $files);
   }
 
   public function route($action) {
@@ -82,8 +78,7 @@ class Requests {
   // Create a new config yaml file
   private function createConfig() {
     // Check if file exists in configs folder
-    if (!$this->checkFileExists(true)) {
-      // Conflict
+    if ($this->checkFileExists()) {
       throw new Error("This file name already exists", 409);
     }
 
@@ -95,7 +90,9 @@ class Requests {
 
   // Return contents for a config yaml file
   private function viewConfig() {
-    $this->checkFileExists();
+    if (!$this->checkFileExists()) {
+      throw new Error("File does not exists", 404);
+    }
 
     // Return the file and stop execution
     header("Content-Type: application/x-yaml", true);
@@ -105,7 +102,9 @@ class Requests {
 
   // Update contents for a config yaml file
   private function updateConfig() {
-    $this->checkFileExists();
+    if (!$this->checkFileExists()) {
+      throw new Error("File does not exists", 404);
+    }
 
     // Save config file
     Settings::saveConfigContents($this->fileName, $this->contents);
@@ -114,7 +113,9 @@ class Requests {
 
   // Delete a config yaml file
   private function deleteConfig() {
-    $this->checkFileExists();
+    if (!$this->checkFileExists()) {
+      throw new Error("File does not exists", 404);
+    }
 
     // Delete config file
     Settings::deleteConfigFile($this->fileName);
